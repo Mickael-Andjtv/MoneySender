@@ -10,6 +10,7 @@ export default function Navbar() {
           </a>
         ))}
       </nav>
+      <h5 className="text-3xl font-bold underline">Mickael</h5>
     </>
   );
 }
