@@ -1,16 +1,15 @@
 export default function Navbar() {
-  const links = ["ENVOYER", "CLIENT", "TAUX", "FRAIS"];
+  const links = ["Envoyer", "Client", "Taux", "Frais"];
   return (
     <>
-      <nav>
+      <div className="flex flex-row font-mono text-base">
         {links.map((link, index) => (
-          <a href="#" key={index}>
+          <a href="#" className="basis-64" key={index}>
             {" "}
             {link}{" "}
           </a>
         ))}
-      </nav>
-      <h5 className="text-3xl font-bold underline">Mickael</h5>
+      </div>
     </>
   );
 }
