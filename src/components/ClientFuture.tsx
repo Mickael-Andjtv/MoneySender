@@ -30,7 +30,7 @@ const ClientFuture = () => {
   const [data, setData] = useState<ClientData[]>([initData]);
   return (
     <>
-      <div className="w-full flex justify-between items-center mb-3 mt-1 pl-3 mt-">
+      <div className="w-full flex justify-between items-center  pl-3 mt-20 mb-10">
         <div>
           <h3 className="text-lg font-bold text-slate-800">
             Liste des clients

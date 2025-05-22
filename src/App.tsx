@@ -6,7 +6,7 @@ import Client from "./components/Pages/Client";
 
 function App() {
   return (
-    <div>
+    <div className="font-mono">
       <Client />
     </div>
   );
