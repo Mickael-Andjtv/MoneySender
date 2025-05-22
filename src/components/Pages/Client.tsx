@@ -3,7 +3,7 @@ import Navbar from "../Navbar";
 
 export default function Client() {
   return (
-    <div>
+    <div className="flex flex-col">
       <Navbar />
       <ClientFuture />
     </div>
