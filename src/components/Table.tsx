@@ -126,8 +126,8 @@ export default function Table<
                     <button
                       className="text-slate-600 hover:text-slate-800"
                       onClick={() => {
-                        console.log(item);
                         action(item);
+
                       }}
                     >
                       <svg
