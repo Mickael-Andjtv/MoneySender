@@ -22,13 +22,15 @@ const header = [
 
 export default function Client() {
   const [data, setData] = useState<DataClient>(initData);
+  const [selectData, setSelectData] = useState<DataClient>();
+  const [editData, setEditData] = useState<Partial<DataClient>>();
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
 
   const actionData = (item: DataClient, specifique: string) => {
     console.log(item, specifique);
-    
-    setData(item);
+
+    setSelectData(item);
     if (specifique === "edit") setEdit(true);
     else if (specifique === "del") setDel(true);
   };
@@ -44,15 +46,43 @@ export default function Client() {
       />
 
       {edit && (
-
         <div>
-          <h2>HOOOOOOOOO</h2>
-          <input type="text" value={data.numTel}/>
-          <input type="text" value={data.name}/>
-          <input type="text" value={data.sex}/>
-          <input type="text" value={data.country}/>
-          <input type="text" value={data.pay}/>
-          <input type="text" value={data.mail}/>
+          <input
+            type="text"
+            defaultValue={selectData?.numTel}
+            onChange={(e) =>
+              setEditData({ ...editData, numTel: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            defaultValue={selectData?.name}
+            onChange={(e) => setEditData({ ...editData, name: e.target.value })}
+          />
+          <input
+            type="text"
+            defaultValue={selectData?.sex}
+            onChange={(e) => setEditData({ ...editData, sex: e.target.value })}
+          />
+          <input
+            type="text"
+            defaultValue={selectData?.country}
+            onChange={(e) =>
+              setEditData({ ...editData, country: e.target.value })
+            }
+          />
+          <input
+            type="text"
+            defaultValue={selectData?.pay}
+            onChange={(e) =>
+              setEditData({ ...editData, pay: parseInt(e.target.value) })
+            }
+          />
+          <input
+            type="text"
+            defaultValue={selectData?.mail}
+            onChange={(e) => setEditData({ ...editData, mail: e.target.value })}
+          />
         </div>
       )}
     </>
