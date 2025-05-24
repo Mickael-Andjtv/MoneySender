@@ -1,4 +1,4 @@
-import Table from "./Table";
+import Table from "../Table";
 
 
 
@@ -20,7 +20,7 @@ const header = [
   "Action",
 ];
 
-export default  function ClientFuture(){
+export default  function Client(){
   return <>
   <Table data={[initData]} header={header} title="Listes des Clients" name="Client"/>
   </>
