@@ -26,11 +26,13 @@ export default function Client() {
   const [del, setDel] = useState(false);
 
   const actionData = (item: DataClient, specifique: string) => {
+    console.log(item, specifique);
+    
     setData(item);
     if (specifique === "edit") setEdit(true);
     else if (specifique === "del") setDel(true);
   };
-  useEffect(() => {}, [data]);
+  // useEffect(() => {}, [data]);
   return (
     <>
       <Table
@@ -38,8 +40,21 @@ export default function Client() {
         header={header}
         title="Listes des Clients"
         name="Clients"
-        action={setData}
+        action={actionData}
       />
+
+      {edit && (
+
+        <div>
+          <h2>HOOOOOOOOO</h2>
+          <input type="text" value={data.numTel}/>
+          <input type="text" value={data.name}/>
+          <input type="text" value={data.sex}/>
+          <input type="text" value={data.country}/>
+          <input type="text" value={data.pay}/>
+          <input type="text" value={data.mail}/>
+        </div>
+      )}
     </>
   );
 }

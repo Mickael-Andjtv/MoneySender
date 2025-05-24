@@ -12,7 +12,7 @@ interface TableProps<
   header: Array<string>;
   title: string;
   name: string;
-  action: (data: T) => void;
+  action: (data: T, specifique:string) => void;
 }
 
 export default function Table<
@@ -107,7 +107,7 @@ export default function Table<
                   <div className="block text-center">
                     <button
                       className="text-slate-600 hover:text-slate-800"
-                      onClick={() => action(item)}
+                      onClick={() => action(item, 'del')}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +126,7 @@ export default function Table<
                     <button
                       className="text-slate-600 hover:text-slate-800"
                       onClick={() => {
-                        action(item);
+                        action(item, 'edit');
 
                       }}
                     >
