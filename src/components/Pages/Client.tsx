@@ -34,7 +34,9 @@ export default function Client() {
     if (specifique === "edit") setEdit(true);
     else if (specifique === "del") setDel(true);
   };
-  // useEffect(() => {}, [data]);
+  useEffect(() => {
+    console.log(editData);
+  }, [editData]);
   return (
     <>
       <Table
@@ -47,42 +49,67 @@ export default function Client() {
 
       {edit && (
         <div>
-          <input
-            type="text"
-            defaultValue={selectData?.numTel}
-            onChange={(e) =>
-              setEditData({ ...editData, numTel: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            defaultValue={selectData?.name}
-            onChange={(e) => setEditData({ ...editData, name: e.target.value })}
-          />
-          <input
-            type="text"
-            defaultValue={selectData?.sex}
-            onChange={(e) => setEditData({ ...editData, sex: e.target.value })}
-          />
-          <input
-            type="text"
-            defaultValue={selectData?.country}
-            onChange={(e) =>
-              setEditData({ ...editData, country: e.target.value })
-            }
-          />
-          <input
-            type="text"
-            defaultValue={selectData?.pay}
-            onChange={(e) =>
-              setEditData({ ...editData, pay: parseInt(e.target.value) })
-            }
-          />
-          <input
-            type="text"
-            defaultValue={selectData?.mail}
-            onChange={(e) => setEditData({ ...editData, mail: e.target.value })}
-          />
+          <form
+            onSubmit={(e) => {
+              const updateData = {
+                numTel: editData?.numTel || selectData?.numTel,
+                name: editData?.name || selectData?.name,
+                sex: editData?.sex || selectData?.sex,
+                country: editData?.country || selectData?.country,
+                pay: editData?.pay || selectData?.pay,
+                mail: editData?.mail || selectData?.mail,
+              };
+            }}
+          >
+            <input
+              type="text"
+              name="numTel"
+              defaultValue={selectData?.numTel}
+              onChange={(e) =>
+                setEditData({ ...editData, numTel: e.target.value })
+              }
+            />
+            <input
+              type="text"
+              name="name"
+              defaultValue={selectData?.name}
+              onChange={(e) =>
+                setEditData({ ...editData, name: e.target.value })
+              }
+            />
+            <input
+              type="text"
+              name="sex"
+              defaultValue={selectData?.sex}
+              onChange={(e) =>
+                setEditData({ ...editData, sex: e.target.value })
+              }
+            />
+            <input
+              type="text"
+              name="country"
+              defaultValue={selectData?.country}
+              onChange={(e) =>
+                setEditData({ ...editData, country: e.target.value })
+              }
+            />
+            <input
+              type="number"
+              name="pay"
+              defaultValue={selectData?.pay}
+              onChange={(e) =>
+                setEditData({ ...editData, pay: parseInt(e.target.value) })
+              }
+            />
+            <input
+              type="text"
+              name="mail"
+              defaultValue={selectData?.mail}
+              onChange={(e) =>
+                setEditData({ ...editData, mail: e.target.value })
+              }
+            />
+          </form>
         </div>
       )}
     </>
