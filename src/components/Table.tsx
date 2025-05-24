@@ -5,15 +5,19 @@ import type {
   DataSendCosts,
 } from "./services/Data";
 
-interface TableProps {
-  data: DataClient[] | DataSend[] | DataSendCosts[] | DataRate[];
+interface TableProps<
+  T extends DataClient | DataSend | DataSendCosts | DataRate
+> {
+  data: T[];
   header: Array<string>;
   title: string;
   name: string;
-  action: (data: DataClient | DataSend | DataSendCosts | DataRate) => void;
+  action: (data: T) => void;
 }
 
-export default function Table({ data, header, title, name }: TableProps) {
+export default function Table<
+  T extends DataClient | DataSend | DataSendCosts | DataRate
+>({ data, header, title, name, action }: TableProps<T>) {
   return (
     <>
       <div className="w-full flex justify-between items-center  pl-3 mt-20 mb-10">
@@ -21,12 +25,12 @@ export default function Table({ data, header, title, name }: TableProps) {
           <h3 className="text-lg font-bold text-slate-800">{title}</h3>
           <p className="text-slate-500">Apperçus des {name} .</p>
         </div>
-        <button
+        {/* <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-100"
           //   onClick={() => }
         >
           Ajout
-        </button>
+        </button> */}
         <div className="ml-3">
           <div className="w-full max-w-sm min-w-[200px] relative">
             <div className="relative">
@@ -101,7 +105,10 @@ export default function Table({ data, header, title, name }: TableProps) {
                 })}
                 <td className="p-4 py-5">
                   <div className="block text-center">
-                    <button className="text-slate-600 hover:text-slate-800">
+                    <button
+                      className="text-slate-600 hover:text-slate-800"
+                      onClick={() => action(item)}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -116,7 +123,13 @@ export default function Table({ data, header, title, name }: TableProps) {
                         />
                       </svg>
                     </button>
-                    <button className="text-slate-600 hover:text-slate-800">
+                    <button
+                      className="text-slate-600 hover:text-slate-800"
+                      onClick={() => {
+                        console.log(item);
+                        action(item);
+                      }}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
