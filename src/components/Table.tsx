@@ -10,6 +10,7 @@ interface TableProps {
   header: Array<string>;
   title: string;
   name: string;
+  action: (data: DataClient | DataSend | DataSendCosts | DataRate) => void;
 }
 
 export default function Table({ data, header, title, name }: TableProps) {
@@ -89,9 +90,11 @@ export default function Table({ data, header, title, name }: TableProps) {
               >
                 {Object.keys(item).map((key) => {
                   return (
-                    <td className="p-4 py-5">
+                    <td className="p-4 py-5" key={key}>
                       <p className="block font-semibold text-sm text-slate-800">
-                        {key}
+                        {item[key] instanceof Date
+                          ? item[key].toLocaleDateString()
+                          : item[key]}
                       </p>
                     </td>
                   );

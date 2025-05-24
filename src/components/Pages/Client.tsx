@@ -22,6 +22,6 @@ const header = [
 
 export default  function Client(){
   return <>
-  <Table data={[initData]} header={header} title="Listes des Clients" name="Client"/>
+  <Table data={[initData]} header={header} title="Listes des Clients" name="Clients"/>
   </>
 }
