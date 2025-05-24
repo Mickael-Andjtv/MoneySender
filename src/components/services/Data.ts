@@ -12,3 +12,10 @@ export interface DataTaux {
   montant1: number;
   montant2: number;
 }
+
+export interface FraisEnvoy {
+  idFrais: string;
+  montant1: number;
+  montant2: number;
+  frais: number;
+}
