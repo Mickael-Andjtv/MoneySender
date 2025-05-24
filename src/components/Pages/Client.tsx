@@ -21,7 +21,7 @@ const header = [
 ];
 
 export default function Client() {
-  const [data, setData] = useState<DataClient>(initData);
+  // const [data, setData] = useState<DataClient>(initData);
   const [selectData, setSelectData] = useState<DataClient>();
   const [editData, setEditData] = useState<Partial<DataClient>>();
   const [edit, setEdit] = useState(false);
@@ -34,9 +34,10 @@ export default function Client() {
     if (specifique === "edit") setEdit(true);
     else if (specifique === "del") setDel(true);
   };
-  useEffect(() => {
+
+  const updateData = async (editData: DataClient) => {
     console.log(editData);
-  }, [editData]);
+  };
   return (
     <>
       <Table
@@ -51,7 +52,8 @@ export default function Client() {
         <div>
           <form
             onSubmit={(e) => {
-              const updateData = {
+              e.preventDefault();
+              const update = {
                 numTel: editData?.numTel || selectData?.numTel,
                 name: editData?.name || selectData?.name,
                 sex: editData?.sex || selectData?.sex,
@@ -59,6 +61,7 @@ export default function Client() {
                 pay: editData?.pay || selectData?.pay,
                 mail: editData?.mail || selectData?.mail,
               };
+              updateData(update as DataClient);
             }}
           >
             <input
@@ -109,6 +112,7 @@ export default function Client() {
                 setEditData({ ...editData, mail: e.target.value })
               }
             />
+            <button>Submit</button>
           </form>
         </div>
       )}
