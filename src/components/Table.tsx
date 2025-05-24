@@ -7,17 +7,18 @@ import type {
 
 interface TableProps {
   data: DataClient[] | DataSend[] | DataSendCosts[] | DataRate[];
+  header: Array<string>;
+  title: string;
+  name: string;
 }
 
-export default function Table({ data }: TableProps) {
+export default function Table({ data, header, title, name }: TableProps) {
   return (
     <>
       <div className="w-full flex justify-between items-center  pl-3 mt-20 mb-10">
         <div>
-          <h3 className="text-lg font-bold text-slate-800">
-            Liste des clients
-          </h3>
-          <p className="text-slate-500">Apperçus des clients .</p>
+          <h3 className="text-lg font-bold text-slate-800">{title}</h3>
+          <p className="text-slate-500">Apperçus des {name} .</p>
         </div>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-100"
@@ -76,28 +77,25 @@ export default function Table({ data }: TableProps) {
             {data.map((item) => (
               <tr
                 className="hover:bg-slate-50 border-b border-slate-200"
-                key={item.numTel}
+                key={
+                  "numTel" in item
+                    ? item.numTel
+                    : "idRate" in item
+                    ? item.idRate
+                    : "idCosts" in item
+                    ? item.idCosts
+                    : item.idSend
+                }
               >
-                <td className="p-4 py-5">
-                  <p className="block font-semibold text-sm text-slate-800">
-                    {item.numTel}
-                  </p>
-                </td>
-                <td className="p-4 py-5">
-                  <p className="block text-sm text-slate-800"> {item.nom} </p>
-                </td>
-                <td className="p-4 py-5">
-                  <p className="block text-sm text-slate-800">{item.sexe}</p>
-                </td>
-                <td className="p-4 py-5">
-                  <p className="block text-sm text-slate-800">{item.pays}</p>
-                </td>
-                <td className="p-4 py-5">
-                  <p className="block text-sm text-slate-800">{item.solde}</p>
-                </td>
-                <td className="p-4 py-5">
-                  <p className="block text-sm text-slate-800">{item.mail}</p>
-                </td>
+                {Object.keys(item).map((key) => {
+                  return (
+                    <td className="p-4 py-5">
+                      <p className="block font-semibold text-sm text-slate-800">
+                        {key}
+                      </p>
+                    </td>
+                  );
+                })}
                 <td className="p-4 py-5">
                   <div className="block text-center">
                     <button className="text-slate-600 hover:text-slate-800">
