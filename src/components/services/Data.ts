@@ -1,21 +1,30 @@
 export interface DataClient {
   numTel: string;
-  nom: string;
-  sexe: string;
-  pays: string;
-  solde: number;
+  name: string;
+  sex: string;
+  country: string;
+  pay: number;
   mail: string;
 }
 
-export interface DataTaux {
-  idTaux: string;
-  montant1: number;
-  montant2: number;
+export interface DataRate {
+  idRate: string;
+  rising1: number;
+  rising2: number;
 }
 
-export interface FraisEnvoy {
-  idFrais: string;
-  montant1: number;
-  montant2: number;
-  frais: number;
+export interface DataSendCosts {
+  idCosts: string;
+  rising1: number;
+  rising2: number;
+  costs: number;
+}
+
+export interface DataSend {
+  idSend: string;
+  numSender: string;
+  numReceiver: string;
+  rising: number;
+  date: Date;
+  reason: string;
 }
