@@ -1,46 +1,35 @@
 import { useEffect, useState } from "react";
 import Table from "../Table";
-import type { DataClient } from "../services/Data";
+import type { DataRate } from "../services/Data";
 import { API_URL } from "../services/Api";
 
-const header = [
-  "Numéro Téléphone",
-  "Nom",
-  "Sexe",
-  "Pays",
-  "Solde",
-  "Mail",
-  "Action",
-];
+const header = ["idTaux", "Montant 1", "Montant 2"];
 
 export default function Taux() {
-  const [data, setData] = useState<DataClient[]>([]);
-  const [selectData, setSelectData] = useState<DataClient>();
-  const [editData, setEditData] = useState<Partial<DataClient>>();
+  const [data, setData] = useState<DataRate[]>([]);
+  const [selectData, setSelectData] = useState<DataRate>();
+  const [editData, setEditData] = useState<Partial<DataRate>>();
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
   const [add, setAdd] = useState(false);
 
-  const actionData = (item: DataClient, specifique: string) => {
+  const actionData = (item: DataRate, specifique: string) => {
     setSelectData(item);
     if (specifique === "edit") setEdit(true);
     else if (specifique === "del") setDel(true);
   };
 
-  const updateData = async (editData: DataClient) => {
+  const updateData = async (editData: DataRate) => {
     console.log("one", editData);
 
     try {
-      const response = await fetch(
-        `${API_URL}/api/clients/${editData.numTel}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(editData),
-        }
-      );
+      const response = await fetch(`${API_URL}/api/taux/${editData.idTaux}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(editData),
+      });
 
       if (!response.ok) throw new Error("Request error");
       fetchData();
@@ -51,9 +40,9 @@ export default function Taux() {
     }
   };
 
-  const addClient = async (data: DataClient) => {
+  const addClient = async (data: DataRate) => {
     try {
-      const response = await fetch(`${API_URL}/api/clients`, {
+      const response = await fetch(`${API_URL}/api/taux`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,9 +58,9 @@ export default function Taux() {
     }
   };
 
-  const deleteClient = async (numTel: string | undefined) => {
+  const deleteClient = async (idTaux: string | undefined) => {
     try {
-      const response = await fetch(`${API_URL}/api/clients/${numTel}`, {
+      const response = await fetch(`${API_URL}/api/taux/${idTaux}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -87,7 +76,7 @@ export default function Taux() {
   };
   const fetchData = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/clients`);
+      const response = await fetch(`${API_URL}/api/taux`);
       if (response.status >= 400) throw new Error("Error request");
 
       const res = await response.json();
@@ -123,102 +112,54 @@ export default function Taux() {
             onSubmit={(e) => {
               e.preventDefault();
               const update = {
-                numTel: selectData?.numTel,
-                nom: editData?.nom || selectData?.nom,
-                sexe: editData?.sexe || selectData?.sexe,
-                pays: editData?.pays || selectData?.pays,
-                solde: editData?.solde || selectData?.solde,
-                mail: editData?.mail || selectData?.mail,
+                idTaux: selectData?.idTaux,
+                montant1: editData?.montant1 || selectData?.montant1,
+                montant2: editData?.montant2 || selectData?.montant2,
               };
-              updateData(update as DataClient);
+              updateData(update as DataRate);
             }}
             className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
           >
             <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
-              Modifier le Client
+              Modifier le Taux
             </h2>
             <div className="grid grid-cols-1 gap-4">
               <label
-                htmlFor="nom"
+                htmlFor="montant1"
                 className="block text-sm font-medium text-gray-700"
               >
-                Nom
+                Montant 1
               </label>
               <input
                 type="text"
-                name="nom"
-                id="nom"
-                defaultValue={selectData?.nom}
+                name="montant1"
+                id="montant1"
+                defaultValue={selectData?.montant1}
                 onChange={(e) =>
-                  setEditData({ ...editData, nom: e.target.value })
+                  setEditData({
+                    ...editData,
+                    montant1: parseInt(e.target.value),
+                  })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
 
               <label
-                htmlFor="sexe"
+                htmlFor="montant2"
                 className="block text-sm font-medium text-gray-700"
               >
-                sexe
+                montant2
               </label>
               <input
                 type="text"
-                name="sexe"
-                id="sexe"
-                defaultValue={selectData?.sexe}
+                name="montant2"
+                id="montant2"
+                defaultValue={selectData?.montant2}
                 onChange={(e) =>
-                  setEditData({ ...editData, sexe: e.target.value })
-                }
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              />
-
-              <label
-                htmlFor="pays"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Pays
-              </label>
-              <input
-                type="text"
-                name="pays"
-                id="pays"
-                defaultValue={selectData?.pays}
-                onChange={(e) =>
-                  setEditData({ ...editData, pays: e.target.value })
-                }
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              />
-
-              <label
-                htmlFor="solde"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Solde
-              </label>
-              <input
-                type="number"
-                name="solde"
-                id="solde"
-                defaultValue={selectData?.solde}
-                onChange={(e) =>
-                  setEditData({ ...editData, solde: parseInt(e.target.value) })
-                }
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              />
-
-              <label
-                htmlFor="mail"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Mail
-              </label>
-              <input
-                type="email"
-                name="mail"
-                id="mail"
-                defaultValue={selectData?.mail}
-                onChange={(e) =>
-                  setEditData({ ...editData, mail: e.target.value })
+                  setEditData({
+                    ...editData,
+                    montant2: parseInt(e.target.value),
+                  })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
@@ -245,8 +186,8 @@ export default function Taux() {
         <div className="fixed inset-0  flex items-center justify-center z-50">
           <div className="bg-white p-8 rounded-lg shadow-xl max-w-sm w-full text-center relative">
             <h2 className="text-xl font-bold mb-6 text-gray-800">
-              Voulez-vous vraiment supprimer le client : <br />
-              <span className="text-blue-600">{selectData?.nom}</span> ?
+              Voulez-vous vraiment supprimer ce taux: <br />
+              <span className="text-blue-600">{selectData?.idTaux}</span> ?
             </h2>
             <div className="flex justify-center space-x-4 mt-6">
               <button
@@ -258,7 +199,7 @@ export default function Taux() {
               </button>
               <button
                 type="button" // Change to type="button" to prevent form submission if not wrapped in <form>
-                onClick={() => deleteClient(selectData?.numTel)}
+                onClick={() => deleteClient(selectData?.idTaux)}
                 className="px-5 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-150 ease-in-out"
               >
                 Supprimer
@@ -274,18 +215,16 @@ export default function Taux() {
               e.preventDefault();
               const form = e.currentTarget;
               const newData = {
-                numTel: (form.elements.namedItem("numTel") as HTMLInputElement)
+                idTaux: (form.elements.namedItem("idTaux") as HTMLInputElement)
                   .value,
-                nom: (form.elements.namedItem("nom") as HTMLInputElement).value,
-                sexe: (form.elements.namedItem("sexe") as HTMLInputElement)
-                  .value,
-                pays: (form.elements.namedItem("pays") as HTMLInputElement)
-                  .value,
-                solde: parseInt(
-                  (form.elements.namedItem("solde") as HTMLInputElement).value
+                montant1: parseInt(
+                  (form.elements.namedItem("montant1") as HTMLInputElement)
+                    .value
                 ),
-                mail: (form.elements.namedItem("mail") as HTMLInputElement)
-                  .value,
+                montant2: parseInt(
+                  (form.elements.namedItem("montant2") as HTMLInputElement)
+                    .value
+                ),
               };
 
               addClient(newData);
@@ -293,84 +232,45 @@ export default function Taux() {
             className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
           >
             <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
-              Ajouter un Client
+              Ajouter un Taux
             </h2>
             <div className="grid grid-cols-1 gap-4">
               <label
-                htmlFor="numTel"
+                htmlFor="idTaux"
                 className="block text-sm font-medium text-gray-700"
               >
-                Numéro Téléphone
+                IdTaux
               </label>
               <input
                 type="text"
-                name="numTel"
-                id="numTel"
+                name="idTaux"
+                id="idTaux"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
 
               <label
-                htmlFor="nom"
+                htmlFor="montant 1"
                 className="block text-sm font-medium text-gray-700"
               >
-                Nom
+                Montant 1
               </label>
               <input
                 type="text"
-                name="nom"
-                id="nom"
+                name="montant1"
+                id="montant 1"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
 
               <label
-                htmlFor="sexe"
+                htmlFor="montant 2"
                 className="block text-sm font-medium text-gray-700"
               >
-                sexe
+                Montant 2
               </label>
               <input
                 type="text"
-                name="sexe"
-                id="sexe"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              />
-
-              <label
-                htmlFor="pays"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Pays
-              </label>
-              <input
-                type="text"
-                name="pays"
-                id="pays"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              />
-
-              <label
-                htmlFor="solde"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Solde
-              </label>
-              <input
-                type="number"
-                name="solde"
-                id="solde"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              />
-
-              <label
-                htmlFor="mail"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Mail
-              </label>
-              <input
-                type="email"
-                name="mail"
-                id="mail"
+                name="montant2"
+                id="montant 2"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
             </div>
