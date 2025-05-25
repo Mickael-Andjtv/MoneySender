@@ -22,7 +22,7 @@ const header = [
 ];
 
 export default function Client() {
-  // const [data, setData] = useState<DataClient>(initData);
+  const [data, setData] = useState<DataClient[]>([initData]);
   const [selectData, setSelectData] = useState<DataClient>();
   const [editData, setEditData] = useState<Partial<DataClient>>();
   const [edit, setEdit] = useState(false);
@@ -46,9 +46,10 @@ export default function Client() {
     try {
       const response = await fetch(`${API_CLIENT}/api/clients`);
       if (response.status >= 400) throw new Error("Error request");
-      console.log(response);
 
       const res = await response.json();
+      setData(res.data);
+
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -62,7 +63,7 @@ export default function Client() {
   return (
     <>
       <Table
-        data={[initData]}
+        data={data}
         header={header}
         title="Listes des Clients"
         name="Clients"
