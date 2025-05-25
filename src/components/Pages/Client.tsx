@@ -61,6 +61,22 @@ export default function Client() {
     // setEdit(false);
   };
 
+  const addClient = async (data:DataClient) => {
+    try {
+      const  response = await fetch(`${API_CLIENT}/api/clients`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+
+      console.log(response);
+      
+    } catch (error) {
+      throw new Error(`${error}`)
+    }
+  }
   const fetchData = async () => {
     try {
       const response = await fetch(`${API_CLIENT}/api/clients`);
