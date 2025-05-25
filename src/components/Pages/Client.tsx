@@ -5,10 +5,10 @@ import { API_CLIENT } from "../../Api";
 
 const initData = {
   numTel: "0343063371",
-  name: "Mickael",
-  sex: "M",
-  country: "M/car",
-  pay: 10,
+  nom: "Mickael",
+  sexe: "M",
+  pays: "M/car",
+  solde: 10,
   mail: "m@gmail.com",
 };
 const header = [
@@ -77,13 +77,13 @@ export default function Client() {
               e.preventDefault();
               const update = {
                 numTel: editData?.numTel || selectData?.numTel,
-                name: editData?.name || selectData?.name,
-                sex: editData?.sex || selectData?.sex,
-                country: editData?.country || selectData?.country,
-                pay: editData?.pay || selectData?.pay,
+                name: editData?.nom || selectData?.nom,
+                sex: editData?.sexe || selectData?.sexe,
+                country: editData?.pays || selectData?.pays,
+                pay: editData?.solde || selectData?.solde,
                 mail: editData?.mail || selectData?.mail,
               };
-              updateData(update as DataClient);
+              updateData(update as unknown as DataClient);
             }}
             className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
           >
@@ -109,69 +109,69 @@ export default function Client() {
               />
 
               <label
-                htmlFor="name"
+                htmlFor="nom"
                 className="block text-sm font-medium text-gray-700"
               >
                 Nom
               </label>
               <input
                 type="text"
-                name="name"
-                id="name"
-                defaultValue={selectData?.name}
+                name="nom"
+                id="nom"
+                defaultValue={selectData?.nom}
                 onChange={(e) =>
-                  setEditData({ ...editData, name: e.target.value })
+                  setEditData({ ...editData, nom: e.target.value })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
 
               <label
-                htmlFor="sex"
+                htmlFor="sexe"
                 className="block text-sm font-medium text-gray-700"
               >
-                Sexe
+                sexe
               </label>
               <input
                 type="text"
-                name="sex"
-                id="sex"
-                defaultValue={selectData?.sex}
+                name="sexe"
+                id="sexe"
+                defaultValue={selectData?.sexe}
                 onChange={(e) =>
-                  setEditData({ ...editData, sex: e.target.value })
+                  setEditData({ ...editData, sexe: e.target.value })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
 
               <label
-                htmlFor="country"
+                htmlFor="pays"
                 className="block text-sm font-medium text-gray-700"
               >
                 Pays
               </label>
               <input
                 type="text"
-                name="country"
-                id="country"
-                defaultValue={selectData?.country}
+                name="pays"
+                id="pays"
+                defaultValue={selectData?.pays}
                 onChange={(e) =>
-                  setEditData({ ...editData, country: e.target.value })
+                  setEditData({ ...editData, pays: e.target.value })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
 
               <label
-                htmlFor="pay"
+                htmlFor="solde"
                 className="block text-sm font-medium text-gray-700"
               >
                 Solde
               </label>
               <input
                 type="number"
-                name="pay"
-                id="pay"
-                defaultValue={selectData?.pay}
+                name="solde"
+                id="solde"
+                defaultValue={selectData?.solde}
                 onChange={(e) =>
-                  setEditData({ ...editData, pay: parseInt(e.target.value) })
+                  setEditData({ ...editData, solde: parseInt(e.target.value) })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
@@ -216,7 +216,7 @@ export default function Client() {
           <div className="bg-white p-8 rounded-lg shadow-xl max-w-sm w-full text-center relative">
             <h2 className="text-xl font-bold mb-6 text-gray-800">
               Voulez-vous vraiment supprimer le client : <br />
-              <span className="text-blue-600">{selectData?.name}</span> ?
+              <span className="text-blue-600">{selectData?.nom}</span> ?
             </h2>
             <div className="flex justify-center space-x-4 mt-6">
               <button
