@@ -12,12 +12,13 @@ interface TableProps<
   header: Array<string>;
   title: string;
   name: string;
-  action: (data: T, specifique:string) => void;
+  action: (data: T, specifique: string) => void;
+  handleAdd: (add: boolean) => void;
 }
 
 export default function Table<
   T extends DataClient | DataSend | DataSendCosts | DataRate
->({ data, header, title, name, action }: TableProps<T>) {
+>({ data, header, title, name, action, handleAdd }: TableProps<T>) {
   return (
     <>
       <div className="w-full flex justify-between items-center  pl-3 mt-20 mb-10">
@@ -25,12 +26,12 @@ export default function Table<
           <h3 className="text-lg font-bold text-slate-800">{title}</h3>
           <p className="text-slate-500">Apperçus des {name} .</p>
         </div>
-        {/* <button
+        <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-100"
-          //   onClick={() => }
+          onClick={() => handleAdd(true)}
         >
           Ajout
-        </button> */}
+        </button>
         <div className="ml-3">
           <div className="w-full max-w-sm min-w-[200px] relative">
             <div className="relative">
@@ -107,7 +108,7 @@ export default function Table<
                   <div className="block text-center">
                     <button
                       className="text-slate-600 hover:text-slate-800"
-                      onClick={() => action(item, 'del')}
+                      onClick={() => action(item, "del")}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -126,8 +127,7 @@ export default function Table<
                     <button
                       className="text-slate-600 hover:text-slate-800"
                       onClick={() => {
-                        action(item, 'edit');
-
+                        action(item, "edit");
                       }}
                     >
                       <svg
