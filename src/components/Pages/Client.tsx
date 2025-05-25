@@ -44,7 +44,11 @@ export default function Client() {
   const fetchData = async () => {
     try {
       const response = await fetch(`${API_CLIENT}/api/clients`);
+      if (response.status >= 400) throw new Error("Error request");
       console.log(response);
+      
+      const res = await response.json();
+      console.log(res);
     } catch (error) {
       console.log(error);
     }
