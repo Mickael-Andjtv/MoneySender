@@ -27,6 +27,7 @@ export default function Client() {
   const [editData, setEditData] = useState<Partial<DataClient>>();
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
+  const [add, setAdd] = useState(false);
 
   const actionData = (item: DataClient, specifique: string) => {
     console.log(item, specifique);
@@ -46,7 +47,7 @@ export default function Client() {
       const response = await fetch(`${API_CLIENT}/api/clients`);
       if (response.status >= 400) throw new Error("Error request");
       console.log(response);
-      
+
       const res = await response.json();
       console.log(res);
     } catch (error) {
@@ -66,6 +67,7 @@ export default function Client() {
         title="Listes des Clients"
         name="Clients"
         action={actionData}
+        handleAdd={setAdd}
       />
 
       {edit && (
