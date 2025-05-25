@@ -238,6 +238,138 @@ export default function Client() {
           </div>
         </div>
       )}
+      {add && (
+        <div className="fixed inset-0  flex items-center justify-center z-50">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+            className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
+          >
+            <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
+              Ajouter un Client
+            </h2>
+            <div className="grid grid-cols-1 gap-4">
+              <label
+                htmlFor="numTel"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Numéro Téléphone
+              </label>
+              <input
+                type="text"
+                name="numTel"
+                id="numTel"
+                // defaultValue={selectData?.numTel}
+                // onChange={(e) =>
+                //   setEditData({ ...editData, numTel: e.target.value })
+                // }
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+
+              <label
+                htmlFor="nom"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Nom
+              </label>
+              <input
+                type="text"
+                name="nom"
+                id="nom"
+                // defaultValue={selectData?.nom}
+                // onChange={(e) =>
+                //   setEditData({ ...editData, nom: e.target.value })
+                // }
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+
+              <label
+                htmlFor="sexe"
+                className="block text-sm font-medium text-gray-700"
+              >
+                sexe
+              </label>
+              <input
+                type="text"
+                name="sexe"
+                id="sexe"
+                // defaultValue={selectData?.sexe}
+                // onChange={(e) =>
+                //   setEditData({ ...editData, sexe: e.target.value })
+                // }
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+
+              <label
+                htmlFor="pays"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Pays
+              </label>
+              <input
+                type="text"
+                name="pays"
+                id="pays"
+                // defaultValue={selectData?.pays}
+                // onChange={(e) =>
+                //   setEditData({ ...editData, pays: e.target.value })
+                // }
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+
+              <label
+                htmlFor="solde"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Solde
+              </label>
+              <input
+                type="number"
+                name="solde"
+                id="solde"
+                // defaultValue={selectData?.solde}
+                // onChange={(e) =>
+                //   setEditData({ ...editData, solde: parseInt(e.target.value) })
+                // }
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+
+              <label
+                htmlFor="mail"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Mail
+              </label>
+              <input
+                type="text"
+                name="mail"
+                id="mail"
+                // defaultValue={selectData?.mail}
+                // onChange={(e) =>
+                //   setEditData({ ...editData, mail: e.target.value })
+                // }
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+            </div>
+            <div className="mt-6 flex justify-end space-x-3">
+              <button
+                type="button"
+                onClick={() => setAdd(false)}
+                className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+              >
+                Annuler
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              >
+                AJouter
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
     </>
   );
 }
