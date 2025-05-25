@@ -244,6 +244,9 @@ export default function Client() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
+              // const newData = {
+              //   numTel:e.
+              // }
             }}
             className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
           >
