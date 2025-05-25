@@ -38,6 +38,8 @@ export default function Client() {
   };
 
   const updateData = async (editData: DataClient) => {
+    console.log("one", editData);
+
     try {
       const response = await fetch(
         `${API_CLIENT}/api/clients/${editData.numTel}`,
@@ -50,7 +52,8 @@ export default function Client() {
         }
       );
 
-      console.log(response);
+      const res = await response.json();
+      console.log("two", res);
     } catch (error) {
       throw new Error(`${error}`);
     }
@@ -203,7 +206,7 @@ export default function Client() {
                 Mail
               </label>
               <input
-                type="text"
+                type="email"
                 name="mail"
                 id="mail"
                 defaultValue={selectData?.mail}
@@ -262,9 +265,22 @@ export default function Client() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              // const newData = {
-              //   numTel:e.
-              // }
+              const form = e.currentTarget;
+              const newData = {
+                numTel: (form.elements.namedItem("numTel") as HTMLInputElement)
+                  .value,
+                nom: (form.elements.namedItem("nom") as HTMLInputElement).value,
+                sexe: (form.elements.namedItem("sexe") as HTMLInputElement)
+                  .value,
+                pays: (form.elements.namedItem("pays") as HTMLInputElement)
+                  .value,
+                solde: parseInt(
+                  (form.elements.namedItem("solde") as HTMLInputElement).value
+                ),
+                mail: (form.elements.namedItem("mail") as HTMLInputElement)
+                  .value,
+              };
+              console.log(newData);
             }}
             className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
           >
@@ -364,7 +380,7 @@ export default function Client() {
                 Mail
               </label>
               <input
-                type="text"
+                type="email"
                 name="mail"
                 id="mail"
                 // defaultValue={selectData?.mail}
