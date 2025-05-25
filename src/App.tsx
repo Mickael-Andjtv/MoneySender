@@ -9,16 +9,17 @@ import Client from "./components/Pages/Client";
 import Frais from "./components/Pages/Frais";
 import Taux from "./components/Pages/Taux";
 
-const pages = ["envoyer", <Client/>,<Taux/>, <Frais/>]
+const pages = ["envoyer", <Client />, <Taux />, <Frais />];
 function App() {
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(0);
   return (
     <div className="font-mono">
-      <Navbar />
+      <Navbar handlepage={setPage} />
       <ErrorBoundary>
         {/* <Client /> */}
         {/* <Taux></Taux> */}
-        <Frais/>
+        {/* <Frais/> */}
+        {pages[page]}
       </ErrorBoundary>
     </div>
   );
