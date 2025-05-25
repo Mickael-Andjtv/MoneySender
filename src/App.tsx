@@ -4,8 +4,9 @@
 import "./App.css";
 import ErrorBoundary from "./components/Errors/ErrorBoundary";
 import Navbar from "./components/Navbar";
+import Frais from "./components/Pages/Frais";
 // import Client from "./components/Pages/Client";
-import Taux from "./components/Pages/Taux";
+// import Taux from "./components/Pages/Taux";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <Navbar />
       <ErrorBoundary>
         {/* <Client /> */}
-        <Taux></Taux>
+        {/* <Taux></Taux> */}
+        <Frais/>
       </ErrorBoundary>
     </div>
   );
