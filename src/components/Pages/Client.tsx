@@ -22,8 +22,6 @@ export default function Client() {
   const [add, setAdd] = useState(false);
 
   const actionData = (item: DataClient, specifique: string) => {
-    console.log(item, specifique);
-
     setSelectData(item);
     if (specifique === "edit") setEdit(true);
     else if (specifique === "del") setDel(true);
@@ -303,10 +301,6 @@ export default function Client() {
                 type="text"
                 name="numTel"
                 id="numTel"
-                // defaultValue={selectData?.numTel}
-                // onChange={(e) =>
-                //   setEditData({ ...editData, numTel: e.target.value })
-                // }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
 
@@ -320,10 +314,6 @@ export default function Client() {
                 type="text"
                 name="nom"
                 id="nom"
-                // defaultValue={selectData?.nom}
-                // onChange={(e) =>
-                //   setEditData({ ...editData, nom: e.target.value })
-                // }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
 
@@ -337,10 +327,6 @@ export default function Client() {
                 type="text"
                 name="sexe"
                 id="sexe"
-                // defaultValue={selectData?.sexe}
-                // onChange={(e) =>
-                //   setEditData({ ...editData, sexe: e.target.value })
-                // }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
 
@@ -354,10 +340,6 @@ export default function Client() {
                 type="text"
                 name="pays"
                 id="pays"
-                // defaultValue={selectData?.pays}
-                // onChange={(e) =>
-                //   setEditData({ ...editData, pays: e.target.value })
-                // }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
 
@@ -371,10 +353,6 @@ export default function Client() {
                 type="number"
                 name="solde"
                 id="solde"
-                // defaultValue={selectData?.solde}
-                // onChange={(e) =>
-                //   setEditData({ ...editData, solde: parseInt(e.target.value) })
-                // }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
 
@@ -388,10 +366,6 @@ export default function Client() {
                 type="email"
                 name="mail"
                 id="mail"
-                // defaultValue={selectData?.mail}
-                // onChange={(e) =>
-                //   setEditData({ ...editData, mail: e.target.value })
-                // }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
             </div>
