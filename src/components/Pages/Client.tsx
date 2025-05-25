@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Table from "../Table";
 import type { DataClient } from "../services/Data";
-import { API_CLIENT } from "../../Api";
+import { API_CLIENT } from "../services/Api";
 
 const header = [
   "Numéro Téléphone",
