@@ -40,7 +40,7 @@ export default function Taux() {
     }
   };
 
-  const addClient = async (data: DataRate) => {
+  const addTaux = async (data: DataRate) => {
     try {
       const response = await fetch(`${API_URL}/api/taux`, {
         method: "POST",
@@ -58,7 +58,7 @@ export default function Taux() {
     }
   };
 
-  const deleteClient = async (idTaux: string | undefined) => {
+  const deleteTaux = async (idTaux: string | undefined) => {
     try {
       const response = await fetch(`${API_URL}/api/taux/${idTaux}`, {
         method: "DELETE",
@@ -199,7 +199,7 @@ export default function Taux() {
               </button>
               <button
                 type="button" // Change to type="button" to prevent form submission if not wrapped in <form>
-                onClick={() => deleteClient(selectData?.idTaux)}
+                onClick={() => deleteTaux(selectData?.idTaux)}
                 className="px-5 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-150 ease-in-out"
               >
                 Supprimer
@@ -227,7 +227,7 @@ export default function Taux() {
                 ),
               };
 
-              addClient(newData);
+              addTaux(newData);
             }}
             className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
           >
