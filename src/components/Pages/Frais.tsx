@@ -39,6 +39,7 @@ export default function Frais() {
     } catch (error) {
       throw new Error(`${error}`);
     } finally {
+      setEditData(undefined);
       setEdit(false);
     }
   };
@@ -118,10 +119,8 @@ export default function Frais() {
                 idFrais: selectData?.idFrais,
                 montant1: editData?.montant1 || selectData?.montant1,
                 montant2: editData?.montant2 || selectData?.montant2,
-                frais: parseFloat(String(editData?.frais)) || selectData?.frais,
+                frais: editData?.frais || selectData?.frais,
               };
-              console.log(update);
-              
               updateData(update as DataSendCosts);
             }}
             className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
@@ -137,14 +136,14 @@ export default function Frais() {
                 Montant 1
               </label>
               <input
-                type="number"
+                type="text"
                 name="montant1"
                 id="montant1"
                 defaultValue={selectData?.montant1}
                 onChange={(e) =>
                   setEditData({
                     ...editData,
-                    montant1: parseInt(e.target.value),
+                    montant1: parseFloat(e.target.value),
                   })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -157,14 +156,14 @@ export default function Frais() {
                 Montant 2
               </label>
               <input
-                type="number"
+                type="text"
                 name="montant2"
                 id="montant2"
                 defaultValue={selectData?.montant2}
                 onChange={(e) =>
                   setEditData({
                     ...editData,
-                    montant2: parseInt(e.target.value),
+                    montant2: parseFloat(e.target.value),
                   })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -182,7 +181,10 @@ export default function Frais() {
                 id="frais"
                 defaultValue={selectData?.frais}
                 onChange={(e) =>
-                  setEditData({ ...editData, frais: parseInt(e.target.value) })
+                  setEditData({
+                    ...editData,
+                    frais: parseFloat(e.target.value),
+                  })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
@@ -190,7 +192,10 @@ export default function Frais() {
             <div className="mt-6 flex justify-end space-x-3">
               <button
                 type="button"
-                onClick={() => setEdit(false)}
+                onClick={() => {
+                  setEditData(undefined);
+                  setEdit(false);
+                }}
                 className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
               >
                 Annuler
