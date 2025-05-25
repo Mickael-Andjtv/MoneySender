@@ -48,7 +48,9 @@ export default function Client() {
       if (response.status >= 400) throw new Error("Error request");
 
       const res = await response.json();
-      setData(res.data);
+      console.log(res);
+
+      setData(res);
 
       console.log(res);
     } catch (error) {
