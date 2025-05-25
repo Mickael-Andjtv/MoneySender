@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import Table from "../Table";
 import type { DataClient } from "../services/Data";
 
@@ -37,7 +37,7 @@ export default function Client() {
 
   const updateData = async (editData: DataClient) => {
     console.log(editData);
-    setEdit(false); 
+    setEdit(false);
   };
 
   return (
@@ -189,6 +189,26 @@ export default function Client() {
               </button>
             </div>
           </form>
+        </div>
+      )}
+      {del && (
+        <div className="fixed inset-0  flex items-center justify-center z-50">
+          <h2>Voulez vous vraiment supprimer ce Client</h2>
+          <div className="mt-6 flex justify-end space-x-3">
+            <button
+              type="button"
+              onClick={() => setDel(false)}
+              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+            >
+              Annuler
+            </button>
+            <button
+              type="submit"
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              Supprimer
+            </button>
+          </div>
         </div>
       )}
     </>
