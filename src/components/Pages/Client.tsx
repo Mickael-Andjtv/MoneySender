@@ -69,6 +69,7 @@ export default function Client() {
         name="Clients"
         action={actionData}
         handleAdd={setAdd}
+        search
       />
 
       {edit && (
