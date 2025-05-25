@@ -40,6 +40,15 @@ export default function Client() {
     setEdit(false);
   };
 
+  const fetchData = async ()=>{
+    try {
+      const response = await fetch(`${}`)
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
   return (
     <>
       <Table
@@ -193,21 +202,27 @@ export default function Client() {
       )}
       {del && (
         <div className="fixed inset-0  flex items-center justify-center z-50">
-          <h2>Voulez vous vraiment supprimer ce Client</h2>
-          <div className="mt-6 flex justify-end space-x-3">
-            <button
-              type="button"
-              onClick={() => setDel(false)}
-              className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-            >
-              Annuler
-            </button>
-            <button
-              type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              Supprimer
-            </button>
+          <div className="bg-white p-8 rounded-lg shadow-xl max-w-sm w-full text-center relative">
+            <h2 className="text-xl font-bold mb-6 text-gray-800">
+              Voulez-vous vraiment supprimer le client : <br />
+              <span className="text-blue-600">{selectData?.name}</span> ?
+            </h2>
+            <div className="flex justify-center space-x-4 mt-6">
+              <button
+                type="button"
+                onClick={() => setDel(false)}
+                className="px-5 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-150 ease-in-out"
+              >
+                Annuler
+              </button>
+              <button
+                type="button" // Change to type="button" to prevent form submission if not wrapped in <form>
+                //  onClick={deleteData}
+                className="px-5 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-150 ease-in-out"
+              >
+                Supprimer
+              </button>
+            </div>
           </div>
         </div>
       )}
