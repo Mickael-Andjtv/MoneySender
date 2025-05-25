@@ -1,6 +1,3 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
 import { useState } from "react";
 import "./App.css";
 import ErrorBoundary from "./components/Errors/ErrorBoundary";
@@ -15,12 +12,7 @@ function App() {
   return (
     <div className="font-mono">
       <Navbar handlepage={setPage} />
-      <ErrorBoundary>
-        {/* <Client /> */}
-        {/* <Taux></Taux> */}
-        {/* <Frais/> */}
-        {pages[page]}
-      </ErrorBoundary>
+      <ErrorBoundary>{pages[page]}</ErrorBoundary>
     </div>
   );
 }

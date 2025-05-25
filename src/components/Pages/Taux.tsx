@@ -99,11 +99,11 @@ export default function Taux() {
       <Table
         data={data}
         header={header}
-        title="Listes des Clients"
-        name="Clients"
+        title="Listes des Taux"
+        name="Taux"
         action={actionData}
         handleAdd={setAdd}
-        search
+        search={false}
       />
 
       {edit && (
