@@ -3,14 +3,6 @@ import Table from "../Table";
 import type { DataClient } from "../services/Data";
 import { API_CLIENT } from "../../Api";
 
-const initData = {
-  numTel: "0343063371",
-  nom: "Mickael",
-  sexe: "M",
-  pays: "M/car",
-  solde: 10,
-  mail: "m@gmail.com",
-};
 const header = [
   "Numéro Téléphone",
   "Nom",
@@ -22,7 +14,7 @@ const header = [
 ];
 
 export default function Client() {
-  const [data, setData] = useState<DataClient[]>([initData]);
+  const [data, setData] = useState<DataClient[]>([]);
   const [selectData, setSelectData] = useState<DataClient>();
   const [editData, setEditData] = useState<Partial<DataClient>>();
   const [edit, setEdit] = useState(false);

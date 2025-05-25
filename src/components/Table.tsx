@@ -83,7 +83,7 @@ export default function Table<
             </tr>
           </thead>
           <tbody>
-            {data.map((item) => (
+            { data.map((item) => (
               <tr
                 className="hover:bg-slate-50 border-b border-slate-200"
                 key={
@@ -148,6 +148,7 @@ export default function Table<
             ))}
           </tbody>
         </table>
+        {!data.length && <h2> {name} vide pour le moment</h2>}
       </div>
     </>
   );
