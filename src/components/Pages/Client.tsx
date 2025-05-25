@@ -54,7 +54,7 @@ export default function Client() {
 
       console.log(res);
     } catch (error) {
-      console.log(error);
+      throw new Error(`${error}`);
     }
   };
 
