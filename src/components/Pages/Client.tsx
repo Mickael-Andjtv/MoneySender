@@ -49,8 +49,8 @@ export default function Client() {
 
       const res = await response.json();
       console.log(res);
-      
-      // setData(res.data);
+
+      setData(res);
 
       console.log(res);
     } catch (error) {
