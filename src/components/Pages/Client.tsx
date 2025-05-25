@@ -61,22 +61,35 @@ export default function Client() {
     // setEdit(false);
   };
 
-  const addClient = async (data:DataClient) => {
+  const addClient = async (data: DataClient) => {
     try {
-      const  response = await fetch(`${API_CLIENT}/api/clients`, {
+      const response = await fetch(`${API_CLIENT}/api/clients`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      })
+      });
 
       console.log(response);
-      
     } catch (error) {
-      throw new Error(`${error}`)
+      throw new Error(`${error}`);
     }
-  }
+  };
+
+  const deleteClient = async (numTel: string|undefined) => {
+    try {
+      const response = await fetch(`${API_CLIENT}/api/clients/${numTel}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(response);
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  };
   const fetchData = async () => {
     try {
       const response = await fetch(`${API_CLIENT}/api/clients`);
@@ -130,23 +143,6 @@ export default function Client() {
               Modifier le Client
             </h2>
             <div className="grid grid-cols-1 gap-4">
-              {/* <label
-                htmlFor="numTel"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Numéro Téléphone
-              </label>
-              <input
-                type="text"
-                name="numTel"
-                id="numTel"
-                defaultValue={selectData?.numTel}
-                onChange={(e) =>
-                  setEditData({ ...editData, numTel: e.target.value })
-                }
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              /> */}
-
               <label
                 htmlFor="nom"
                 className="block text-sm font-medium text-gray-700"
@@ -267,7 +263,7 @@ export default function Client() {
               </button>
               <button
                 type="button" // Change to type="button" to prevent form submission if not wrapped in <form>
-                //  onClick={deleteData}
+                 onClick={()=> deleteClient(selectData?.numTel)}
                 className="px-5 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-150 ease-in-out"
               >
                 Supprimer
@@ -296,7 +292,8 @@ export default function Client() {
                 mail: (form.elements.namedItem("mail") as HTMLInputElement)
                   .value,
               };
-              console.log(newData);
+
+              addClient(newData);
             }}
             className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
           >
