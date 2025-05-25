@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Table from "../Table";
 import type { DataClient } from "../services/Data";
+import { API_CLIENT } from "../../Api";
 
 const initData = {
   numTel: "0343063371",
@@ -40,14 +41,18 @@ export default function Client() {
     setEdit(false);
   };
 
-  const fetchData = async ()=>{
+  const fetchData = async () => {
     try {
-      const response = await fetch(`${}`)
+      const response = await fetch(`${API_CLIENT}/api/clients`);
+      console.log(response);
     } catch (error) {
       console.log(error);
-      
     }
-  }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
