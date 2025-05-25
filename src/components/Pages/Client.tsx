@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Table from "../Table";
 import type { DataClient } from "../services/Data";
-import { API_CLIENT } from "../services/Api";
+import { API_URL } from "../services/Api";
 
 const header = [
   "Numéro Téléphone",
@@ -32,7 +32,7 @@ export default function Client() {
 
     try {
       const response = await fetch(
-        `${API_CLIENT}/api/clients/${editData.numTel}`,
+        `${API_URL}/api/clients/${editData.numTel}`,
         {
           method: "PUT",
           headers: {
@@ -53,7 +53,7 @@ export default function Client() {
 
   const addClient = async (data: DataClient) => {
     try {
-      const response = await fetch(`${API_CLIENT}/api/clients`, {
+      const response = await fetch(`${API_URL}/api/clients`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export default function Client() {
 
   const deleteClient = async (numTel: string | undefined) => {
     try {
-      const response = await fetch(`${API_CLIENT}/api/clients/${numTel}`, {
+      const response = await fetch(`${API_URL}/api/clients/${numTel}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -82,7 +82,7 @@ export default function Client() {
   };
   const fetchData = async () => {
     try {
-      const response = await fetch(`${API_CLIENT}/api/clients`);
+      const response = await fetch(`${API_URL}/api/clients`);
       if (response.status >= 400) throw new Error("Error request");
 
       const res = await response.json();
