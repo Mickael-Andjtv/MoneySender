@@ -42,13 +42,13 @@ export default function Client() {
         }
       );
 
-      const res = await response.json();
-      console.log("two", res);
+      if (!response.ok) throw new Error("Request error");
+      fetchData();
     } catch (error) {
       throw new Error(`${error}`);
+    } finally {
+      setEdit(false);
     }
-
-    // setEdit(false);
   };
 
   const addClient = async (data: DataClient) => {
@@ -60,10 +60,12 @@ export default function Client() {
         },
         body: JSON.stringify(data),
       });
-
-      console.log(response);
+      if (!response.ok) throw new Error("Request error");
+      fetchData();
     } catch (error) {
       throw new Error(`${error}`);
+    } finally {
+      setAdd(false);
     }
   };
 
@@ -75,9 +77,12 @@ export default function Client() {
           "Content-Type": "application/json",
         },
       });
-      console.log(response);
+      if (!response.ok) throw new Error("Request error");
+      fetchData();
     } catch (error) {
       throw new Error(`${error}`);
+    } finally {
+      setDel(false);
     }
   };
   const fetchData = async () => {
