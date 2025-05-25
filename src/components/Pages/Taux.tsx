@@ -37,6 +37,7 @@ export default function Taux() {
       throw new Error(`${error}`);
     } finally {
       setEdit(false);
+      setEditData(undefined)
     }
   };
 
@@ -114,8 +115,10 @@ export default function Taux() {
               const update = {
                 idTaux: selectData?.idTaux,
                 montant1: editData?.montant1 || selectData?.montant1,
-                montant2: editData?.montant2 || selectData?.montant2,
+                montant2:parseFloat(String(editData?.montant2)) || selectData?.montant2,
               };
+              console.log(update);
+              
               updateData(update as DataRate);
             }}
             className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
@@ -138,7 +141,7 @@ export default function Taux() {
                 onChange={(e) =>
                   setEditData({
                     ...editData,
-                    montant1: parseInt(e.target.value),
+                    montant1: parseFloat(e.target.value),
                   })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -158,7 +161,7 @@ export default function Taux() {
                 onChange={(e) =>
                   setEditData({
                     ...editData,
-                    montant2: parseInt(e.target.value),
+                    montant2: parseFloat(e.target.value),
                   })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -167,7 +170,10 @@ export default function Taux() {
             <div className="mt-6 flex justify-end space-x-3">
               <button
                 type="button"
-                onClick={() => setEdit(false)}
+                onClick={() => {
+                  setEditData(undefined)
+                  setEdit(false)
+                }}
                 className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
               >
                 Annuler

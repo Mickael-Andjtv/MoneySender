@@ -118,8 +118,10 @@ export default function Frais() {
                 idFrais: selectData?.idFrais,
                 montant1: editData?.montant1 || selectData?.montant1,
                 montant2: editData?.montant2 || selectData?.montant2,
-                frais: editData?.frais || selectData?.frais,
+                frais: parseFloat(String(editData?.frais)) || selectData?.frais,
               };
+              console.log(update);
+              
               updateData(update as DataSendCosts);
             }}
             className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
@@ -135,7 +137,7 @@ export default function Frais() {
                 Montant 1
               </label>
               <input
-                type="text"
+                type="number"
                 name="montant1"
                 id="montant1"
                 defaultValue={selectData?.montant1}
@@ -155,7 +157,7 @@ export default function Frais() {
                 Montant 2
               </label>
               <input
-                type="text"
+                type="number"
                 name="montant2"
                 id="montant2"
                 defaultValue={selectData?.montant2}
