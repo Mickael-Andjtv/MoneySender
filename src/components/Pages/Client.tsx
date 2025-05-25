@@ -47,6 +47,7 @@ export default function Client() {
     } catch (error) {
       throw new Error(`${error}`);
     } finally {
+      setEditData(undefined);
       setEdit(false);
     }
   };
@@ -196,12 +197,15 @@ export default function Client() {
                 Solde
               </label>
               <input
-                type="number"
+                type="text"
                 name="solde"
                 id="solde"
                 defaultValue={selectData?.solde}
                 onChange={(e) =>
-                  setEditData({ ...editData, solde: parseInt(e.target.value) })
+                  setEditData({
+                    ...editData,
+                    solde: parseFloat(e.target.value),
+                  })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
@@ -226,7 +230,10 @@ export default function Client() {
             <div className="mt-6 flex justify-end space-x-3">
               <button
                 type="button"
-                onClick={() => setEdit(false)}
+                onClick={() => {
+                  setEditData(undefined);
+                  setEdit(false);
+                }}
                 className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
               >
                 Annuler
@@ -281,7 +288,7 @@ export default function Client() {
                   .value,
                 pays: (form.elements.namedItem("pays") as HTMLInputElement)
                   .value,
-                solde: parseInt(
+                solde: parseFloat(
                   (form.elements.namedItem("solde") as HTMLInputElement).value
                 ),
                 mail: (form.elements.namedItem("mail") as HTMLInputElement)

@@ -24,7 +24,7 @@ export default function Frais() {
 
     try {
       const response = await fetch(
-        `${API_URL}/api/fraisenvoi/${editData.idFrais}`,
+        `${API_URL}/api/fraisEnvoi/${editData.idFrais}`,
         {
           method: "PUT",
           headers: {
