@@ -83,7 +83,7 @@ export default function Table<
             </tr>
           </thead>
           <tbody>
-            { data.map((item) => (
+            {data.map((item) => (
               <tr
                 className="hover:bg-slate-50 border-b border-slate-200"
                 key={
@@ -97,12 +97,17 @@ export default function Table<
                 }
               >
                 {Object.keys(item).map((key) => {
+                  const value = item[key as keyof typeof item];
+                  const displayValue =
+                    value instanceof Date
+                      ? value.toLocaleDateString()
+                      : typeof value === "object"
+                      ? JSON.stringify(value)
+                      : String(value);
                   return (
                     <td className="p-4 py-5" key={key}>
                       <p className="block font-semibold text-sm text-slate-800">
-                        {item[key] instanceof Date
-                          ? item[key].toLocaleDateString()
-                          : item[key]}
+                        {displayValue}
                       </p>
                     </td>
                   );
