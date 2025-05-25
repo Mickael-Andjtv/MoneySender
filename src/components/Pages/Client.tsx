@@ -38,8 +38,24 @@ export default function Client() {
   };
 
   const updateData = async (editData: DataClient) => {
-    console.log(editData);
-    setEdit(false);
+    try {
+      const response = await fetch(
+        `${API_CLIENT}/api/clients/${editData.numTel}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(editData),
+        }
+      );
+
+      console.log(response);
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+
+    // setEdit(false);
   };
 
   const fetchData = async () => {
@@ -80,7 +96,7 @@ export default function Client() {
             onSubmit={(e) => {
               e.preventDefault();
               const update = {
-                numTel: editData?.numTel || selectData?.numTel,
+                numTel: selectData?.numTel,
                 name: editData?.nom || selectData?.nom,
                 sex: editData?.sexe || selectData?.sexe,
                 country: editData?.pays || selectData?.pays,
@@ -95,7 +111,7 @@ export default function Client() {
               Modifier le Client
             </h2>
             <div className="grid grid-cols-1 gap-4">
-              <label
+              {/* <label
                 htmlFor="numTel"
                 className="block text-sm font-medium text-gray-700"
               >
@@ -110,7 +126,7 @@ export default function Client() {
                   setEditData({ ...editData, numTel: e.target.value })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              />
+              /> */}
 
               <label
                 htmlFor="nom"
