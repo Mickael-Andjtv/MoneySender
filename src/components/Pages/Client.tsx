@@ -77,7 +77,7 @@ export default function Client() {
     }
   };
 
-  const deleteClient = async (numTel: string|undefined) => {
+  const deleteClient = async (numTel: string | undefined) => {
     try {
       const response = await fetch(`${API_CLIENT}/api/clients/${numTel}`, {
         method: "DELETE",
@@ -129,13 +129,13 @@ export default function Client() {
               e.preventDefault();
               const update = {
                 numTel: selectData?.numTel,
-                name: editData?.nom || selectData?.nom,
-                sex: editData?.sexe || selectData?.sexe,
-                country: editData?.pays || selectData?.pays,
-                pay: editData?.solde || selectData?.solde,
+                nom: editData?.nom || selectData?.nom,
+                sexe: editData?.sexe || selectData?.sexe,
+                pays: editData?.pays || selectData?.pays,
+                solde: editData?.solde || selectData?.solde,
                 mail: editData?.mail || selectData?.mail,
               };
-              updateData(update as unknown as DataClient);
+              updateData(update as DataClient);
             }}
             className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
           >
@@ -263,7 +263,7 @@ export default function Client() {
               </button>
               <button
                 type="button" // Change to type="button" to prevent form submission if not wrapped in <form>
-                 onClick={()=> deleteClient(selectData?.numTel)}
+                onClick={() => deleteClient(selectData?.numTel)}
                 className="px-5 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-150 ease-in-out"
               >
                 Supprimer
