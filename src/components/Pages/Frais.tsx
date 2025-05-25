@@ -239,15 +239,15 @@ export default function Frais() {
                 idFrais: (
                   form.elements.namedItem("idFrais") as HTMLInputElement
                 ).value,
-                montant1: parseInt(
+                montant1: parseFloat(
                   (form.elements.namedItem("montant1") as HTMLInputElement)
                     .value
                 ),
-                montant2: parseInt(
+                montant2: parseFloat(
                   (form.elements.namedItem("montant2") as HTMLInputElement)
                     .value
                 ),
-                frais: parseInt(
+                frais: parseFloat(
                   (form.elements.namedItem("frais") as HTMLInputElement).value
                 ),
               };

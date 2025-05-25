@@ -217,11 +217,11 @@ export default function Taux() {
               const newData = {
                 idTaux: (form.elements.namedItem("idTaux") as HTMLInputElement)
                   .value,
-                montant1: parseInt(
+                montant1: parseFloat(
                   (form.elements.namedItem("montant1") as HTMLInputElement)
                     .value
                 ),
-                montant2: parseInt(
+                montant2: parseFloat(
                   (form.elements.namedItem("montant2") as HTMLInputElement)
                     .value
                 ),
