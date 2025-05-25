@@ -4,7 +4,7 @@ export default function Navbar() {
     <>
       <div className="flex flex-row  text-base ">
         {links.map((link, index) => (
-          <a href="#" className="basis-64" key={index}>
+          <a href="#" className="basis-64 hover:bg-blue-100 p-2 rounded-lg" key={index}>
             {" "}
             {link}{" "}
           </a>
