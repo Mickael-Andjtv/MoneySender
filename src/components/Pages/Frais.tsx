@@ -3,7 +3,7 @@ import Table from "../Table";
 import type { DataSendCosts } from "../services/Data";
 import { API_URL } from "../services/Api";
 
-const header = ["idFrais", "montant1", "montant2", "frais"];
+const header = ["IdFrais", "Montant 1", "Montant 2", "Frais", "Actions"];
 
 export default function Frais() {
   const [data, setData] = useState<DataSendCosts[]>([]);

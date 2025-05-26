@@ -3,7 +3,7 @@ import Table from "../Table";
 import type { DataRate } from "../services/Data";
 import { API_URL } from "../services/Api";
 
-const header = ["idTaux", "Montant 1", "Montant 2"];
+const header = ["IdTaux", "Montant 1", "Montant 2", "Actions"];
 
 export default function Taux() {
   const [data, setData] = useState<DataRate[]>([]);
@@ -37,7 +37,7 @@ export default function Taux() {
       throw new Error(`${error}`);
     } finally {
       setEdit(false);
-      setEditData(undefined)
+      setEditData(undefined);
     }
   };
 
@@ -115,10 +115,12 @@ export default function Taux() {
               const update = {
                 idTaux: selectData?.idTaux,
                 montant1: editData?.montant1 || selectData?.montant1,
-                montant2:parseFloat(String(editData?.montant2)) || selectData?.montant2,
+                montant2:
+                  parseFloat(String(editData?.montant2)) ||
+                  selectData?.montant2,
               };
               console.log(update);
-              
+
               updateData(update as DataRate);
             }}
             className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
@@ -171,8 +173,8 @@ export default function Taux() {
               <button
                 type="button"
                 onClick={() => {
-                  setEditData(undefined)
-                  setEdit(false)
+                  setEditData(undefined);
+                  setEdit(false);
                 }}
                 className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
               >
