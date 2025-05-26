@@ -5,8 +5,9 @@ import Navbar from "./components/Navbar";
 import Client from "./components/Pages/Client";
 import Frais from "./components/Pages/Frais";
 import Taux from "./components/Pages/Taux";
+import  Envoyer from "./components/Pages/Envoyer";
 
-const pages = ["envoyer", <Client />, <Taux />, <Frais />];
+const pages = [<Envoyer/>, <Client />, <Taux />, <Frais />];
 function App() {
   const [page, setPage] = useState(0);
   return (
