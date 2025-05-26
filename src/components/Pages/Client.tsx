@@ -20,6 +20,7 @@ export default function Client() {
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
   const [add, setAdd] = useState(false);
+  const [research, setResearch] = useState()
 
   const actionData = (item: DataClient, specifique: string) => {
     setSelectData(item);

@@ -15,11 +15,12 @@ interface TableProps<
   action: (data: T, specifique: string) => void;
   handleAdd: (add: boolean) => void;
   search: boolean;
+  handeSearch?:(pattern:string)=>void
 }
 
 export default function Table<
   T extends DataClient | DataSend | DataSendCosts | DataRate
->({ data, header, title, name, action, handleAdd, search }: TableProps<T>) {
+>({ data, header, title, name, action, handleAdd, search , handeSearch}: TableProps<T>) {
   return (
     <>
       <div className="w-full flex justify-between items-center  pl-3 mt-20 mb-10">
@@ -37,7 +38,8 @@ export default function Table<
           <div className="ml-3">
             <div className="w-full max-w-sm min-w-[200px] relative">
               <div className="relative">
-                <input
+                <input 
+                  onChange={(e)=> handeSearch && handeSearch(e.target.value)}
                   className="bg-white w-full pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
                   placeholder="Search for invoice..."
                 />
