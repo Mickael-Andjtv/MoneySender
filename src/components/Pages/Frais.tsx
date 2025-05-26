@@ -287,7 +287,7 @@ export default function Frais() {
                 Montant 1
               </label>
               <input
-                type="number"
+                type="text"
                 name="montant1"
                 id="montant1"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -299,7 +299,7 @@ export default function Frais() {
                 Montant 2
               </label>
               <input
-                type="number"
+                type="text"
                 name="montant2"
                 id="montant2"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -311,7 +311,7 @@ export default function Frais() {
                 Frais
               </label>
               <input
-                type="number"
+                type="text"
                 name="frais"
                 id="frais"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
