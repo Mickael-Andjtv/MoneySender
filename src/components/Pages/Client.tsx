@@ -5,11 +5,11 @@ import { API_URL } from "../services/Api";
 
 const header = [
   "Numéro Téléphone",
-  "Nom",
-  "Sexe",
-  "Pays",
-  "Solde",
   "Mail",
+  "Nom",
+  "Pays",
+  "Sexe",
+  "Solde",
   "Action",
 ];
 
@@ -103,8 +103,11 @@ export default function Client() {
 
   const getClientByName = async (name: string) => {
     try {
-      if (!name) return;
-      const response = await fetch(`${API_URL}/api/clients/${name}`);
+      if (!name) {
+        fetchData();
+        return;
+      }
+      const response = await fetch(`${API_URL}/api/clients/nom/${name}`);
       if (!response.ok) throw new Error("Request Error");
       const res = await response.json();
       setData(res);
