@@ -108,6 +108,7 @@ export default function Client() {
       const response = await fetch(`${API_URL}/api/clients/${name}`);
       if (!response.ok) throw new Error("Request Error");
       const res = await response.json();
+      setData(res)
       console.log(res);
     } catch (error) {
       throw new Error(`${error}`);
