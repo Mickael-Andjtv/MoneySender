@@ -208,7 +208,6 @@ export default function Envoyer() {
                 type="datetime-local"
                 name="date"
                 id="date"
-                defaultValue={selectData?.date.toDateString()}
                 onChange={(e) =>
                   setEditData({
                     ...editData,
