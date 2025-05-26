@@ -29,8 +29,6 @@ export default function Client() {
   };
 
   const updateData = async (editData: DataClient) => {
-    console.log("one", editData);
-
     try {
       const response = await fetch(
         `${API_URL}/api/clients/${editData.numTel}`,
@@ -105,10 +103,11 @@ export default function Client() {
 
   const getClientByName = async (name: string) => {
     try {
+      if (!name) return;
       const response = await fetch(`${API_URL}/api/clients/${name}`);
       if (!response.ok) throw new Error("Request Error");
       const res = await response.json();
-      setData(res)
+      setData(res);
       console.log(res);
     } catch (error) {
       throw new Error(`${error}`);
