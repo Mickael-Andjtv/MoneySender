@@ -1,29 +1,37 @@
 import { useEffect, useState } from "react";
 import Table from "../Table";
-import type { DataRate } from "../services/Data";
+import type { DataSend } from "../services/Data";
 import { API_URL } from "../services/Api";
 
-const header = ["idTaux", "Montant 1", "Montant 2"];
+const header = [
+  "idEnv",
+  "Numéro envoyeur",
+  "Numéro destinataire",
+  "Montant",
+  "Date",
+  "Raison",
+  "Actions",
+];
 
 export default function Envoyer() {
-  const [data, setData] = useState<DataRate[]>([]);
-  const [selectData, setSelectData] = useState<DataRate>();
-  const [editData, setEditData] = useState<Partial<DataRate>>();
+  const [data, setData] = useState<DataSend[]>([]);
+  const [selectData, setSelectData] = useState<DataSend>();
+  const [editData, setEditData] = useState<Partial<DataSend>>();
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
   const [add, setAdd] = useState(false);
 
-  const actionData = (item: DataRate, specifique: string) => {
+  const actionData = (item: DataSend, specifique: string) => {
     setSelectData(item);
     if (specifique === "edit") setEdit(true);
     else if (specifique === "del") setDel(true);
   };
 
-  const updateData = async (editData: DataRate) => {
+  const updateData = async (editData: DataSend) => {
     console.log("one", editData);
 
     try {
-      const response = await fetch(`${API_URL}/api/taux/${editData.idTaux}`, {
+      const response = await fetch(`${API_URL}/api/envoyer/${editData.idEnv}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -37,13 +45,13 @@ export default function Envoyer() {
       throw new Error(`${error}`);
     } finally {
       setEdit(false);
-      setEditData(undefined)
+      setEditData(undefined);
     }
   };
 
-  const addTaux = async (data: DataRate) => {
+  const addEnvois = async (data: DataSend) => {
     try {
-      const response = await fetch(`${API_URL}/api/taux`, {
+      const response = await fetch(`${API_URL}/api/envoyer`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,9 +67,9 @@ export default function Envoyer() {
     }
   };
 
-  const deleteTaux = async (idTaux: string | undefined) => {
+  const deleteEnvois = async (idEnv: string | undefined) => {
     try {
-      const response = await fetch(`${API_URL}/api/taux/${idTaux}`, {
+      const response = await fetch(`${API_URL}/api/envoyer/${idEnv}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +85,7 @@ export default function Envoyer() {
   };
   const fetchData = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/taux`);
+      const response = await fetch(`${API_URL}/api/envoyer`);
       if (response.status >= 400) throw new Error("Error request");
 
       const res = await response.json();
@@ -100,8 +108,8 @@ export default function Envoyer() {
       <Table
         data={data}
         header={header}
-        title="Listes des Taux"
-        name="Taux"
+        title="Listes des Envois"
+        name="Envois"
         action={actionData}
         handleAdd={setAdd}
         search={false}
@@ -113,55 +121,118 @@ export default function Envoyer() {
             onSubmit={(e) => {
               e.preventDefault();
               const update = {
-                idTaux: selectData?.idTaux,
-                montant1: editData?.montant1 || selectData?.montant1,
-                montant2:parseFloat(String(editData?.montant2)) || selectData?.montant2,
+                idEnv: selectData?.idEnv,
+                numEnvoyeur: editData?.numEnvoyeur || selectData?.numEnvoyeur,
+                numRecepteur:
+                  editData?.numRecepteur || selectData?.numRecepteur,
+                montant: editData?.montant || selectData?.montant,
+                date: editData?.date || selectData?.date,
+                raison: editData?.raison || selectData?.raison,
               };
               console.log(update);
-              
-              updateData(update as DataRate);
+
+              updateData(update as DataSend);
             }}
             className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
           >
             <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
-              Modifier le Taux
+              Modifier l'envois
             </h2>
             <div className="grid grid-cols-1 gap-4">
               <label
-                htmlFor="montant1"
+                htmlFor="numEnvoyeur"
                 className="block text-sm font-medium text-gray-700"
               >
-                Montant 1
+                Numéro Envoyeur
               </label>
               <input
                 type="text"
-                name="montant1"
-                id="montant1"
-                defaultValue={selectData?.montant1}
+                name="numEnvoyeur"
+                id="numEnvoyeur"
+                defaultValue={selectData?.numEnvoyeur}
                 onChange={(e) =>
                   setEditData({
                     ...editData,
-                    montant1: parseFloat(e.target.value),
+                    numEnvoyeur: e.target.value,
                   })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
 
               <label
-                htmlFor="montant2"
+                htmlFor="numRecepteur"
                 className="block text-sm font-medium text-gray-700"
               >
-                montant2
+                Numéro Recepteur
+              </label>
+              <input
+                type="text"
+                name="numRecepteur"
+                id="numRecepteur"
+                defaultValue={selectData?.numRecepteur}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    numRecepteur: e.target.value,
+                  })
+                }
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+
+              <label
+                htmlFor="montant"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Montant
               </label>
               <input
                 type="text"
                 name="montant2"
                 id="montant2"
-                defaultValue={selectData?.montant2}
+                defaultValue={selectData?.montant}
                 onChange={(e) =>
                   setEditData({
                     ...editData,
-                    montant2: parseFloat(e.target.value),
+                    montant: parseFloat(e.target.value),
+                  })
+                }
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+              <label
+                htmlFor="date"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Date
+              </label>
+              <input
+                type="datetime-local"
+                name="date"
+                id="date"
+                defaultValue={selectData?.date.toDateString()}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    date: new Date(e.target.value),
+                  })
+                }
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+
+              <label
+                htmlFor="raison"
+                className="block text-sm font-medium text-gray-700"
+              >
+                raison
+              </label>
+              <input
+                type="text"
+                name="raison"
+                id="raison"
+                defaultValue={selectData?.raison}
+                onChange={(e) =>
+                  setEditData({
+                    ...editData,
+                    raison: e.target.value,
                   })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
@@ -171,8 +242,8 @@ export default function Envoyer() {
               <button
                 type="button"
                 onClick={() => {
-                  setEditData(undefined)
-                  setEdit(false)
+                  setEditData(undefined);
+                  setEdit(false);
                 }}
                 className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
               >
@@ -193,7 +264,7 @@ export default function Envoyer() {
           <div className="bg-white p-8 rounded-lg shadow-xl max-w-sm w-full text-center relative">
             <h2 className="text-xl font-bold mb-6 text-gray-800">
               Voulez-vous vraiment supprimer ce taux: <br />
-              <span className="text-blue-600">{selectData?.idTaux}</span> ?
+              <span className="text-blue-600">{selectData?.idEnv}</span> ?
             </h2>
             <div className="flex justify-center space-x-4 mt-6">
               <button
@@ -205,7 +276,7 @@ export default function Envoyer() {
               </button>
               <button
                 type="button" // Change to type="button" to prevent form submission if not wrapped in <form>
-                onClick={() => deleteTaux(selectData?.idTaux)}
+                onClick={() => deleteEnvois(selectData?.idEnv)}
                 className="px-5 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-150 ease-in-out"
               >
                 Supprimer
@@ -221,62 +292,107 @@ export default function Envoyer() {
               e.preventDefault();
               const form = e.currentTarget;
               const newData = {
-                idTaux: (form.elements.namedItem("idTaux") as HTMLInputElement)
+                idEnv: (form.elements.namedItem("idEnv") as HTMLInputElement)
                   .value,
-                montant1: parseFloat(
-                  (form.elements.namedItem("montant1") as HTMLInputElement)
-                    .value
+                numEnvoyeur: (
+                  form.elements.namedItem("numEnvoyeur") as HTMLInputElement
+                ).value,
+                numRecepteur: (
+                  form.elements.namedItem("numRecepteur") as HTMLInputElement
+                ).value,
+                date: new Date(
+                  (form.elements.namedItem("date") as HTMLInputElement).value
                 ),
-                montant2: parseFloat(
-                  (form.elements.namedItem("montant2") as HTMLInputElement)
-                    .value
+                montant: parseFloat(
+                  (form.elements.namedItem("montant") as HTMLInputElement).value
                 ),
+                raison: (form.elements.namedItem("date") as HTMLInputElement)
+                  .value,
               };
 
-              addTaux(newData);
+              addEnvois(newData);
             }}
             className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
           >
             <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
-              Ajouter un Taux
+              Envoyer de l'argent
             </h2>
             <div className="grid grid-cols-1 gap-4">
               <label
-                htmlFor="idTaux"
+                htmlFor="idEnv"
                 className="block text-sm font-medium text-gray-700"
               >
-                IdTaux
+                idEnv
               </label>
               <input
                 type="text"
-                name="idTaux"
-                id="idTaux"
+                name="idEnv"
+                id="idEnv"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
 
               <label
-                htmlFor="montant 1"
+                htmlFor="numEnvoyeur"
                 className="block text-sm font-medium text-gray-700"
               >
-                Montant 1
+                Numéro de l'envoyeur
               </label>
               <input
                 type="text"
-                name="montant1"
-                id="montant 1"
+                name="numEnvoyeur"
+                id="numEnvoyeur"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
 
               <label
-                htmlFor="montant 2"
+                htmlFor="numRecepteur"
                 className="block text-sm font-medium text-gray-700"
               >
-                Montant 2
+                Numéro du récepteur
               </label>
               <input
                 type="text"
-                name="montant2"
-                id="montant 2"
+                name="numRecepteur"
+                id="numRecepteur"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+
+              <label
+                htmlFor="montant"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Montant
+              </label>
+              <input
+                type="text"
+                name="montant"
+                id="montant"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+
+              <label
+                htmlFor="date"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Date
+              </label>
+              <input
+                type="datetime-local"
+                name="date"
+                id="date"
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              />
+
+              <label
+                htmlFor="raison"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Raison
+              </label>
+              <input
+                type="text"
+                name="raison"
+                id="raison"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
             </div>
