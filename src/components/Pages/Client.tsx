@@ -20,7 +20,7 @@ export default function Client() {
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
   const [add, setAdd] = useState(false);
-  const [research, setResearch] = useState()
+  const [research, setResearch] = useState<string>("");
 
   const actionData = (item: DataClient, specifique: string) => {
     setSelectData(item);
@@ -103,9 +103,24 @@ export default function Client() {
     }
   };
 
+  const getClientByName = async (name: string) => {
+    try {
+      const response = await fetch(`${API_URL}/api/clients/${name}`);
+      if (!response.ok) throw new Error("Request Error");
+      const res = await response.json();
+      console.log(res);
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    getClientByName(research);
+  }, [research]);
 
   return (
     <>
@@ -117,6 +132,7 @@ export default function Client() {
         action={actionData}
         handleAdd={setAdd}
         search
+        handeSearch={setResearch}
       />
 
       {edit && (
