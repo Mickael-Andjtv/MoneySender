@@ -101,27 +101,27 @@ export default function Client() {
     }
   };
 
-  const getClientByName = async (name: string) => {
-    try {
-      if (!name) {
-        fetchData();
-        return;
-      }
-      const response = await fetch(`${API_URL}/api/clients/nom/${name}`);
-      if (!response.ok) throw new Error("Request Error");
-      const res = await response.json();
-      setData(res);
-      console.log(res);
-    } catch (error) {
-      throw new Error(`${error}`);
-    }
-  };
-
   useEffect(() => {
     fetchData();
   }, []);
 
   useEffect(() => {
+    const getClientByName = async (name: string) => {
+      try {
+        if (!name) {
+          fetchData();
+          return;
+        }
+        const response = await fetch(`${API_URL}/api/clients/nom/${name}`);
+        if (!response.ok) throw new Error("Request Error");
+        const res = await response.json();
+        setData(res);
+        console.log(res);
+      } catch (error) {
+        throw new Error(`${error}`);
+      }
+    };
+
     getClientByName(research);
   }, [research]);
 
