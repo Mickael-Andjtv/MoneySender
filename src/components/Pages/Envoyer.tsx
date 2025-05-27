@@ -89,10 +89,8 @@ export default function Envoyer() {
       const response = await fetch(`${API_URL}/api/envoyer`);
       if (response.status >= 400) throw new Error("Error request");
 
-      const res = await response.json();
-      console.log(res);
-
-      setData(res);
+      const res:DataSend[] = await response.json();
+      setData(data);
 
       console.log(res);
     } catch (error) {
