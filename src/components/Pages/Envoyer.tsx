@@ -190,12 +190,17 @@ export default function Envoyer() {
               onSubmit={(e) => {
                 e.preventDefault();
                 const form = e.currentTarget;
+                const date = (
+                  form.elements.namedItem("date") as HTMLInputElement
+                ).value;
+                const [annee, moi] = date.split("-");
                 const newData = {
                   numTel: (form.elements.namedItem("num") as HTMLInputElement)
                     .value,
-                  date: (form.elements.namedItem("date") as HTMLInputElement)
-                    .value,
+                  moi,
+                  annee,
                 };
+
                 console.log(newData);
               }}
             >
