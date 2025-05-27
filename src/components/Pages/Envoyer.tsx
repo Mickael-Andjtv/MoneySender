@@ -186,7 +186,19 @@ export default function Envoyer() {
             Générer PDF
           </h2>
           <div className="max-w-md mx-auto">
-            <form>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const form = e.currentTarget;
+                const newData = {
+                  numTel: (form.elements.namedItem("num") as HTMLInputElement)
+                    .value,
+                  date: (form.elements.namedItem("date") as HTMLInputElement)
+                    .value,
+                };
+                console.log(newData);
+              }}
+            >
               <div className="space-y-4">
                 <div>
                   <label
