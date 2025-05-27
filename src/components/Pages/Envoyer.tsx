@@ -112,6 +112,10 @@ export default function Envoyer() {
   };
 
   useEffect(() => {
+    getTotal();
+  }, []);
+
+  useEffect(() => {
     const searchByData = async (research: string) => {
       try {
         if (!research) {
@@ -137,14 +141,11 @@ export default function Envoyer() {
 
   return (
     <>
-      <div className="">
-        <h1>Recette total</h1>
-        <input
-          type="text"
-          value={total}
-          disabled
-          className="bg-white w-50  pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
-        />
+      <div className="flex flex-col items-center justify-center gap-2">
+        <h1 className="text-lg font-medium text-gray-700">Recette total</h1>
+        <div className="bg-white w-32 h-10 flex items-center justify-center border border-slate-200 rounded shadow-sm">
+          <span className="text-slate-700 font-medium">{total}</span>
+        </div>
       </div>
       <Table
         data={data}
