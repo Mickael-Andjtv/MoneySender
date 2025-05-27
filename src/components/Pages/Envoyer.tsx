@@ -237,6 +237,7 @@ export default function Envoyer() {
                     id="num"
                     className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
                   >
+                    <option value="">Choisissez le numéro</option>
                     {numbers.map((number) => (
                       <option value={number} key={number} className="text-sm">
                         {number}
@@ -476,9 +477,6 @@ export default function Envoyer() {
                 numRecepteur: (
                   form.elements.namedItem("numRecepteur") as HTMLInputElement
                 ).value,
-                // date: new Date(
-                //   (form.elements.namedItem("date") as HTMLInputElement).value
-                // ),
                 montant: parseFloat(
                   (form.elements.namedItem("montant") as HTMLInputElement).value
                 ),
@@ -514,11 +512,11 @@ export default function Envoyer() {
                 Numéro de l'envoyeur
               </label>
               <select
-                // type="text"
                 name="numEnvoyeur"
                 id="numEnvoyeur"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               >
+                <option value="">Choisissez le numéro</option>
                 {numbers.map((number) => (
                   <option value={number} key={number}>
                     {number}
@@ -533,11 +531,12 @@ export default function Envoyer() {
                 Numéro du récepteur
               </label>
               <select
-                // type="text"
                 name="numRecepteur"
                 id="numRecepteur"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               >
+                <option value="">Choisissez le numéro</option>
+
                 {numbers.map((number) => (
                   <option value={number} key={number}>
                     {number}
