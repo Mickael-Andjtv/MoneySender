@@ -7,8 +7,8 @@ const header = [
   "idEnv",
   "Numéro envoyeur",
   "Numéro destinataire",
-  "Montant",
   "Date",
+  "Montant",
   "Raison",
   "Actions",
 ];
@@ -305,7 +305,7 @@ export default function Envoyer() {
                 montant: parseFloat(
                   (form.elements.namedItem("montant") as HTMLInputElement).value
                 ),
-                raison: (form.elements.namedItem("date") as HTMLInputElement)
+                raison: (form.elements.namedItem("raison") as HTMLInputElement)
                   .value,
               };
 
