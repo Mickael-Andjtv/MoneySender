@@ -181,35 +181,65 @@ export default function Envoyer() {
 
       <div className="mt-[100px]">
         <h2>Generer PDF</h2>
-        <div className="">
-          <form action="">
-            <label
-              htmlFor="num"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Numéro du client
-            </label>
+        <div className="mt-8 bg-white p-6 rounded-lg shadow-md border border-black-200">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            Générer PDF
+          </h2>
+          <div className="max-w-md mx-auto">
+            <form>
+              <div className="space-y-4">
+                <div>
+                  <label
+                    htmlFor="num"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Numéro du client
+                  </label>
+                  <select
+                    name="num"
+                    id="num"
+                    className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  >
+                    {numbers.map((number) => (
+                      <option value={number} key={number} className="text-sm">
+                        {number}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-            <select
-              // type="text"
-              name="num"
-              id="num"
-              // defaultValue={selectData?.numEnvoyeur}
-              // onChange={(e) =>
-              //   setEditData({
-              //     ...editData,
-              //     numEnvoyeur: e.target.value,
-              //   })
-              // }
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            >
-              {numbers.map((number) => (
-                <option value={number} key={number}>
-                  {number}
-                </option>
-              ))}
-            </select>
-          </form>
+                <div>
+                  <label
+                    htmlFor="date"
+                    className="block text-sm font-medium text-gray-700 mb-1"
+                  >
+                    Période
+                  </label>
+                  <input
+                    type="month"
+                    name="date"
+                    id="date"
+                    className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="mt-6 flex justify-end space-x-3">
+                <button
+                  type="button"
+                  className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-1 text-sm font-medium transition-colors"
+                >
+                  Annuler
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 text-sm font-medium transition-colors"
+                >
+                  Générer PDF
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
 
