@@ -103,9 +103,11 @@ export default function Envoyer() {
   useEffect(() => {
     const searchByData = async (research: string) => {
       try {
-        console.log("data here", research);
-        const date = new Date(research);
-        const response = await fetch(`${API_URL}/api/envoyer/${date}`);
+        if (!research) {
+          fetchData();
+          return;
+        }
+        const response = await fetch(`${API_URL}/api/envoyer/${research}`);
 
         if (!response.ok) throw new Error("Request Error");
 
