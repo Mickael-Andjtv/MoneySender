@@ -184,8 +184,8 @@ export default function Envoyer() {
     <>
       <div className="flex flex-col items-center justify-center gap-2">
         <h1 className="text-lg font-medium text-gray-700">Recette total</h1>
-        <div className="bg-white w-32 h-10 flex items-center justify-center border border-slate-200 rounded shadow-sm">
-          <span className="text-slate-700 font-medium">{total}</span>
+        <div className="bg-white w-50 h-10 flex items-center justify-center border border-slate-200 rounded shadow-sm">
+          <span className="text-slate-700 font-medium">{total} Franc Suisse</span>
         </div>
       </div>
       <Table
@@ -196,6 +196,7 @@ export default function Envoyer() {
         action={actionData}
         handleAdd={addBox}
         search
+        date
         handeSearch={setResearch}
       />
 
