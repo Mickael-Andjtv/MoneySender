@@ -112,7 +112,7 @@ export default function Envoyer() {
         name="Envois"
         action={actionData}
         handleAdd={setAdd}
-        search={false}
+        search
       />
 
       {edit && (
