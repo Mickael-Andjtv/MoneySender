@@ -125,6 +125,15 @@ export default function Envoyer() {
 
   return (
     <>
+    <div className="">
+      <h1>Recette total</h1>
+      <input type="text" 
+      value={"my recette"}
+      disabled
+      className="bg-white w-50  pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
+
+      />
+      </div>
       <Table
         data={data}
         header={header}
@@ -135,6 +144,8 @@ export default function Envoyer() {
         search
         handeSearch={setResearch}
       />
+
+      
 
       {edit && (
         <div className="fixed inset-0  flex items-center justify-center z-50">
