@@ -131,6 +131,8 @@ export default function Envoyer() {
     }
   };
 
+  const generatePDF = async(data)
+
   useEffect(() => {
     getClientNumbers();
     getTotal();

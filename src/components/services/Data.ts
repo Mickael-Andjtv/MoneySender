@@ -28,3 +28,9 @@ export interface DataSend {
   date: Date;
   raison: string;
 }
+
+export interface DataPDF {
+  numTel: string;
+  moi: number;
+  annee: number;
+}
