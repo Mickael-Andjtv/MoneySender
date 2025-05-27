@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Table from "../Table";
-import type { DataSend } from "../services/Data";
+import type { DataClient, DataSend } from "../services/Data";
 import { API_URL } from "../services/Api";
 
 const header = [
@@ -22,11 +22,25 @@ export default function Envoyer() {
   const [add, setAdd] = useState(false);
   const [research, setResearch] = useState<string>("");
   const [total, setTotal] = useState<number>(0);
+  const [numbers, setNumbers] = useState<string[]>([]);
 
   const actionData = (item: DataSend, specifique: string) => {
     setSelectData(item);
     if (specifique === "edit") setEdit(true);
     else if (specifique === "del") setDel(true);
+  };
+
+  const getClientNumbers = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/clients`);
+
+      if (!response.ok) throw new Error("Request error");
+
+      const res: DataClient[] = await response.json();
+      setNumbers(res.map((item) => item.numTel));
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
   };
 
   const updateData = async (editData: DataSend) => {
