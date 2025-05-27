@@ -31,6 +31,6 @@ export interface DataSend {
 
 export interface DataPDF {
   numTel: string;
-  moi: number;
+  mois: number;
   annee: number;
 }

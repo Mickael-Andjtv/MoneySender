@@ -131,10 +131,10 @@ export default function Envoyer() {
     }
   };
 
-  const generatePDF = async ({ numTel, moi, annee }: DataPDF) => {
+  const generatePDF = async ({ numTel, mois, annee }: DataPDF) => {
     try {
       const response = await fetch(
-        `${API_URL}/api/envoyer/pdf?numTel=${numTel}&moi=${moi}&annee=${annee}`
+        `${API_URL}/api/envoyer/pdf?numTel=${numTel}&moi=${mois}&annee=${annee}`
       );
       if (response.status >= 400) throw new Error("Error request");
       const res = await response.json();
@@ -206,11 +206,11 @@ export default function Envoyer() {
                 const date = (
                   form.elements.namedItem("date") as HTMLInputElement
                 ).value;
-                const [annee, moi] = date.split("-");
+                const [annee, mois] = date.split("-");
                 const dataPDF = {
                   numTel: (form.elements.namedItem("num") as HTMLInputElement)
                     .value,
-                  moi: parseInt(moi),
+                  mois: parseInt(mois),
                   annee: parseInt(annee),
                 };
 
