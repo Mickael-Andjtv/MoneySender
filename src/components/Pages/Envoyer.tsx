@@ -134,7 +134,7 @@ export default function Envoyer() {
   const generatePDF = async ({ numTel, mois, annee }: DataPDF) => {
     try {
       const response = await fetch(
-        `${API_URL}/api/envoyer/pdf?numTel=${numTel}&moi=${mois}&annee=${annee}`
+        `${API_URL}/api/envoyer/pdf?numTel=${numTel}&mois=${mois}&annee=${annee}`
       );
       if (response.status >= 400) throw new Error("Error request");
       const res = await response.json();
