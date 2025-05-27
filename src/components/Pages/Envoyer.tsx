@@ -207,14 +207,14 @@ export default function Envoyer() {
                   form.elements.namedItem("date") as HTMLInputElement
                 ).value;
                 const [annee, moi] = date.split("-");
-                const newData = {
+                const dataPDF = {
                   numTel: (form.elements.namedItem("num") as HTMLInputElement)
                     .value,
                   moi: parseInt(moi),
                   annee: parseInt(annee),
                 };
 
-                console.log(newData);
+                generatePDF(dataPDF);
               }}
             >
               <div className="space-y-4">
