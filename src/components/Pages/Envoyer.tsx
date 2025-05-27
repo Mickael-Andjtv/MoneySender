@@ -20,6 +20,7 @@ export default function Envoyer() {
   const [edit, setEdit] = useState(false);
   const [del, setDel] = useState(false);
   const [add, setAdd] = useState(false);
+  const [research, setResearch] = useState<string>("");
 
   const actionData = (item: DataSend, specifique: string) => {
     setSelectData(item);
@@ -100,6 +101,24 @@ export default function Envoyer() {
   };
 
   useEffect(() => {
+    const searchByData = async (research: string) => {
+      try {
+        console.log("data here", research);
+        const date = new Date(research);
+        const response = await fetch(`${API_URL}/api/envoyer/${date}`);
+
+        if (!response.ok) throw new Error("Request Error");
+
+        const res = await response.json();
+        setData(res);
+      } catch (error) {
+        throw new Error(`${error}`);
+      }
+    };
+
+    searchByData(research);
+  }, [research]);
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -113,6 +132,7 @@ export default function Envoyer() {
         action={actionData}
         handleAdd={setAdd}
         search
+        handeSearch={setResearch}
       />
 
       {edit && (
