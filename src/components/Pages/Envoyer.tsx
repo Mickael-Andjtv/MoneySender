@@ -21,6 +21,7 @@ export default function Envoyer() {
   const [del, setDel] = useState(false);
   const [add, setAdd] = useState(false);
   const [research, setResearch] = useState<string>("");
+  const [total, setTotal] = useState<number>(0);
 
   const actionData = (item: DataSend, specifique: string) => {
     setSelectData(item);
@@ -99,6 +100,17 @@ export default function Envoyer() {
     }
   };
 
+  const getTotal = async () => {
+    try {
+      const response = await fetch(`${API_URL}/api/envoyer/recette`);
+      if (response.status >= 400) throw new Error("Error request");
+      const res = await response.json();
+      setTotal(res);
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  };
+
   useEffect(() => {
     const searchByData = async (research: string) => {
       try {
@@ -125,14 +137,14 @@ export default function Envoyer() {
 
   return (
     <>
-    <div className="">
-      <h1>Recette total</h1>
-      <input type="text" 
-      value={"my recette"}
-      disabled
-      className="bg-white w-50  pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
-
-      />
+      <div className="">
+        <h1>Recette total</h1>
+        <input
+          type="text"
+          value={total}
+          disabled
+          className="bg-white w-50  pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
+        />
       </div>
       <Table
         data={data}
@@ -144,8 +156,6 @@ export default function Envoyer() {
         search
         handeSearch={setResearch}
       />
-
-      
 
       {edit && (
         <div className="fixed inset-0  flex items-center justify-center z-50">
