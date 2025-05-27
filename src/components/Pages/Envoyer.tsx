@@ -32,6 +32,10 @@ export default function Envoyer() {
     } else if (specifique === "del") setDel(true);
   };
 
+  const addBox = (add: boolean) => {
+    getClientNumbers();
+    setAdd(add);
+  };
   const getClientNumbers = async () => {
     try {
       const response = await fetch(`${API_URL}/api/clients`);
@@ -169,7 +173,7 @@ export default function Envoyer() {
         title="Listes des Envois"
         name="Envois"
         action={actionData}
-        handleAdd={setAdd}
+        handleAdd={addBox}
         search
         handeSearch={setResearch}
       />
