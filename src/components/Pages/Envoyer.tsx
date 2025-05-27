@@ -26,8 +26,10 @@ export default function Envoyer() {
 
   const actionData = (item: DataSend, specifique: string) => {
     setSelectData(item);
-    if (specifique === "edit") setEdit(true);
-    else if (specifique === "del") setDel(true);
+    if (specifique === "edit") {
+      getClientNumbers();
+      setEdit(true);
+    } else if (specifique === "del") setDel(true);
   };
 
   const getClientNumbers = async () => {
