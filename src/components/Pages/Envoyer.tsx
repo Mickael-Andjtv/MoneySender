@@ -208,8 +208,8 @@ export default function Envoyer() {
               >
                 Numéro Envoyeur
               </label>
-              <input
-                type="text"
+              <select
+                // type="text"
                 name="numEnvoyeur"
                 id="numEnvoyeur"
                 defaultValue={selectData?.numEnvoyeur}
@@ -220,7 +220,13 @@ export default function Envoyer() {
                   })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              />
+              >
+                {numbers.map((number) => (
+                  <option value={number} key={number}>
+                    {number}
+                  </option>
+                ))}
+              </select>
 
               <label
                 htmlFor="numRecepteur"
@@ -228,8 +234,8 @@ export default function Envoyer() {
               >
                 Numéro Recepteur
               </label>
-              <input
-                type="text"
+              <select
+                // type="text"
                 name="numRecepteur"
                 id="numRecepteur"
                 defaultValue={selectData?.numRecepteur}
@@ -240,7 +246,13 @@ export default function Envoyer() {
                   })
                 }
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              />
+              >
+                {numbers.map((number) => (
+                  <option value={number} key={number}>
+                    {number}
+                  </option>
+                ))}
+              </select>
 
               <label
                 htmlFor="montant"
@@ -362,9 +374,9 @@ export default function Envoyer() {
                 numRecepteur: (
                   form.elements.namedItem("numRecepteur") as HTMLInputElement
                 ).value,
-                date: new Date(
-                  (form.elements.namedItem("date") as HTMLInputElement).value
-                ),
+                // date: new Date(
+                //   (form.elements.namedItem("date") as HTMLInputElement).value
+                // ),
                 montant: parseFloat(
                   (form.elements.namedItem("montant") as HTMLInputElement).value
                 ),
@@ -372,7 +384,7 @@ export default function Envoyer() {
                   .value,
               };
 
-              addEnvois(newData);
+              addEnvois(newData as DataSend);
             }}
             className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full relative"
           >
@@ -399,12 +411,18 @@ export default function Envoyer() {
               >
                 Numéro de l'envoyeur
               </label>
-              <input
-                type="text"
+              <select
+                // type="text"
                 name="numEnvoyeur"
                 id="numEnvoyeur"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              />
+              >
+                {numbers.map((number) => (
+                  <option value={number} key={number}>
+                    {number}
+                  </option>
+                ))}
+              </select>
 
               <label
                 htmlFor="numRecepteur"
@@ -412,12 +430,18 @@ export default function Envoyer() {
               >
                 Numéro du récepteur
               </label>
-              <input
-                type="text"
+              <select
+                // type="text"
                 name="numRecepteur"
                 id="numRecepteur"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              />
+              >
+                {numbers.map((number) => (
+                  <option value={number} key={number}>
+                    {number}
+                  </option>
+                ))}
+              </select>
 
               <label
                 htmlFor="montant"
@@ -429,19 +453,6 @@ export default function Envoyer() {
                 type="text"
                 name="montant"
                 id="montant"
-                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              />
-
-              <label
-                htmlFor="date"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Date
-              </label>
-              <input
-                type="datetime-local"
-                name="date"
-                id="date"
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               />
 
