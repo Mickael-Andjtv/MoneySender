@@ -197,8 +197,8 @@ export default function Envoyer() {
                 const newData = {
                   numTel: (form.elements.namedItem("num") as HTMLInputElement)
                     .value,
-                  moi,
-                  annee,
+                  moi: parseInt(moi),
+                  annee: parseInt(annee),
                 };
 
                 console.log(newData);
