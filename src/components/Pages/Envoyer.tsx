@@ -27,13 +27,13 @@ export default function Envoyer() {
   const actionData = (item: DataSend, specifique: string) => {
     setSelectData(item);
     if (specifique === "edit") {
-      getClientNumbers();
+      // getClientNumbers();
       setEdit(true);
     } else if (specifique === "del") setDel(true);
   };
 
   const addBox = (add: boolean) => {
-    getClientNumbers();
+    // getClientNumbers();
     setAdd(add);
   };
   const getClientNumbers = async () => {
@@ -132,6 +132,7 @@ export default function Envoyer() {
   };
 
   useEffect(() => {
+    getClientNumbers();
     getTotal();
   }, []);
 
@@ -177,6 +178,40 @@ export default function Envoyer() {
         search
         handeSearch={setResearch}
       />
+
+      <div className="mt-[100px]">
+        <h2>Generer PDF</h2>
+        <div className="">
+          <form action="">
+            <label
+              htmlFor="num"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Numéro du client
+            </label>
+
+            <select
+              // type="text"
+              name="num"
+              id="num"
+              // defaultValue={selectData?.numEnvoyeur}
+              // onChange={(e) =>
+              //   setEditData({
+              //     ...editData,
+              //     numEnvoyeur: e.target.value,
+              //   })
+              // }
+              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            >
+              {numbers.map((number) => (
+                <option value={number} key={number}>
+                  {number}
+                </option>
+              ))}
+            </select>
+          </form>
+        </div>
+      </div>
 
       {edit && (
         <div className="fixed inset-0  flex items-center justify-center z-50">
