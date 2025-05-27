@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Table from "../Table";
-import type { DataClient, DataSend } from "../services/Data";
+import type { DataClient, DataPDF, DataSend } from "../services/Data";
 import { API_URL } from "../services/Api";
 
 const header = [
@@ -131,7 +131,18 @@ export default function Envoyer() {
     }
   };
 
-  const generatePDF = async(data)
+  const generatePDF = async ({ numTel, moi, annee }: DataPDF) => {
+    try {
+      const response = await fetch(
+        `${API_URL}/api/envoyer/pdf?numTel=${numTel}&moi=${moi}&annee=${annee}`
+      );
+      if (response.status >= 400) throw new Error("Error request");
+      const res = await response.json();
+      console.log(res);
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  };
 
   useEffect(() => {
     getClientNumbers();
