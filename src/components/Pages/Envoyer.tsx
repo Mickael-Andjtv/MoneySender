@@ -137,8 +137,15 @@ export default function Envoyer() {
         `${API_URL}/api/envoyer/pdf?numTel=${numTel}&mois=${mois}&annee=${annee}`
       );
       if (response.status >= 400) throw new Error("Error request");
-      const res = await response.json();
-      console.log(res);
+      const res = await response.blob();
+
+      const fileURL = URL.createObjectURL(res);
+
+      const downloadLink = document.createElement("a");
+      downloadLink.href = fileURL;
+      downloadLink.download = `${numTel}.pdf`;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
     } catch (error) {
       throw new Error(`${error}`);
     }
