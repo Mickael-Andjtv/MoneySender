@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Table from "../Table";
-import type { DataClient, DataPDF, DataSend } from "../services/Data";
+import type { DataClient, DataPDF, DataSend,Devise } from "../services/Data";
 import { API_URL } from "../services/Api";
 
 const header = [
@@ -23,6 +23,8 @@ export default function Envoyer() {
   const [research, setResearch] = useState<string>("");
   const [total, setTotal] = useState<number>(0);
   const [numbers, setNumbers] = useState<string[]>([]);
+  const [devises, setDevises] = useState<Devise[]>([]);
+  //const [pays, setPays] = useState<String>("");
 
   const actionData = (item: DataSend, specifique: string) => {
     setSelectData(item);
@@ -120,16 +122,41 @@ export default function Envoyer() {
     }
   };
 
-  const getTotal = async () => {
+  const getInitialTotal = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/envoyer/recette`);
+      const response = await fetch(`${API_URL}/api/envoyer/recette/${devises[0].pays}`);
       if (response.status >= 400) throw new Error("Error request");
       const res = await response.json();
+      console.log(res);
       setTotal(res);
     } catch (error) {
       throw new Error(`${error}`);
     }
   };
+
+  const getTotal = async (e : React.ChangeEvent<HTMLSelectElement>) => {
+    try {
+      const response = await fetch(`${API_URL}/api/envoyer/recette/${e.target.value}`);
+      if (response.status >= 400) throw new Error("Error request");
+      const res = await response.json();
+      console.log(res);
+      setTotal(res);
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  };
+
+  const getDevises = async ()=>{
+    try {
+      const response = await fetch(`${API_URL}/api/envoyer/devises`);
+      if (response.status >= 400) throw new Error("Error request");
+      const res:Devise[] = await response.json();
+      console.log(res);
+      setDevises(res)
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  }
 
   const generatePDF = async ({ numTel, mois, annee }: DataPDF) => {
     try {
@@ -153,7 +180,7 @@ export default function Envoyer() {
 
   useEffect(() => {
     getClientNumbers();
-    getTotal();
+
   }, []);
 
   useEffect(() => {
@@ -178,14 +205,23 @@ export default function Envoyer() {
   }, [research]);
   useEffect(() => {
     fetchData();
+    getDevises()
   }, []);
+  useEffect(()=>{
+    getInitialTotal()
+  },[devises])
 
   return (
     <>
       <div className="flex flex-col items-center justify-center gap-2">
         <h1 className="text-lg font-medium text-gray-700">Recette total</h1>
-        <div className="bg-white w-50 h-10 flex items-center justify-center border border-slate-200 rounded shadow-sm">
-          <span className="text-slate-700 font-medium">{total} Franc Suisse</span>
+        <div className="bg-white w-70 h-10 flex items-center justify-center gap-8  border border-slate-200 rounded shadow-sm">
+          <span className="text-slate-700 font-medium">{total}</span>
+          <select name="devise" id="devise" onChange={getTotal}>
+            {devises.map((item)=>
+              <option key={item.pays} value={item.pays}>{item.devise}</option>
+            )}
+          </select>
         </div>
       </div>
       <Table
