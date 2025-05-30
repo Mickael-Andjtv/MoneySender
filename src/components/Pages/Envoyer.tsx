@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Table from "../Table";
-import type { DataClient, DataPDF, DataSend,Devise } from "../services/Data";
+import type { DataClient, DataPDF, DataSend, Devise } from "../services/Data";
 import { API_URL } from "../services/Api";
 
 const header = [
@@ -122,9 +122,11 @@ export default function Envoyer() {
     }
   };
 
-  const getInitialTotal = async () => {
+  const getTotal = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     try {
-      const response = await fetch(`${API_URL}/api/envoyer/recette/${devises[0].pays}`);
+      const response = await fetch(
+        `${API_URL}/api/envoyer/recette/${e.target.value}`
+      );
       if (response.status >= 400) throw new Error("Error request");
       const res = await response.json();
       console.log(res);
@@ -134,29 +136,17 @@ export default function Envoyer() {
     }
   };
 
-  const getTotal = async (e : React.ChangeEvent<HTMLSelectElement>) => {
-    try {
-      const response = await fetch(`${API_URL}/api/envoyer/recette/${e.target.value}`);
-      if (response.status >= 400) throw new Error("Error request");
-      const res = await response.json();
-      console.log(res);
-      setTotal(res);
-    } catch (error) {
-      throw new Error(`${error}`);
-    }
-  };
-
-  const getDevises = async ()=>{
+  const getDevises = async () => {
     try {
       const response = await fetch(`${API_URL}/api/envoyer/devises`);
       if (response.status >= 400) throw new Error("Error request");
-      const res:Devise[] = await response.json();
+      const res: Devise[] = await response.json();
       console.log(res);
-      setDevises(res)
+      setDevises(res);
     } catch (error) {
       throw new Error(`${error}`);
     }
-  }
+  };
 
   const generatePDF = async ({ numTel, mois, annee }: DataPDF) => {
     try {
@@ -180,7 +170,6 @@ export default function Envoyer() {
 
   useEffect(() => {
     getClientNumbers();
-
   }, []);
 
   useEffect(() => {
@@ -205,11 +194,25 @@ export default function Envoyer() {
   }, [research]);
   useEffect(() => {
     fetchData();
-    getDevises()
+    getDevises();
   }, []);
-  useEffect(()=>{
-    getInitialTotal()
-  },[devises])
+  useEffect(() => {
+    const getInitialTotal = async () => {
+      try {
+        const response = await fetch(
+          `${API_URL}/api/envoyer/recette/${devises[0].pays}`
+        );
+        if (response.status >= 400) throw new Error("Error request");
+        const res = await response.json();
+        console.log(res);
+        setTotal(res);
+      } catch (error) {
+        throw new Error(`${error}`);
+      }
+    };
+
+    getInitialTotal();
+  }, [devises]);
 
   return (
     <>
@@ -218,9 +221,11 @@ export default function Envoyer() {
         <div className="bg-white w-70 h-10 flex items-center justify-center gap-8  border border-slate-200 rounded shadow-sm">
           <span className="text-slate-700 font-medium">{total}</span>
           <select name="devise" id="devise" onChange={getTotal}>
-            {devises.map((item)=>
-              <option key={item.pays} value={item.pays}>{item.devise}</option>
-            )}
+            {devises.map((item) => (
+              <option key={item.pays} value={item.pays}>
+                {item.devise}
+              </option>
+            ))}
           </select>
         </div>
       </div>
