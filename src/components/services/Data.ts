@@ -34,3 +34,8 @@ export interface DataPDF {
   mois: number;
   annee: number;
 }
+
+export interface Devise {
+  pays: string;
+  devise:string;
+}
